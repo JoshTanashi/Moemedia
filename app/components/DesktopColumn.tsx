@@ -66,7 +66,7 @@ export const DesktopColumn = forwardRef<
     <div
       ref={containerRef}
       className="relative h-full flex-1 overflow-hidden"
-      style={{ transformStyle: "preserve-3d" }}
+      style={{ transformStyle: "preserve-3d", perspective: "600px" }}
     >
       <ul
         ref={trackRef}

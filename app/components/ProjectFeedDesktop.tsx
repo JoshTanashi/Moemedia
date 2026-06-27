@@ -85,7 +85,6 @@ export function ProjectFeedDesktop({ projects }: { projects: Project[] }) {
             height: "124%",
             transform: "rotate(5deg)",
             transformOrigin: "70% 10%",
-            perspective: "500px",
           }}
         >
           {COLUMN_CONFIG.map((cfg, i) => (
