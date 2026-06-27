@@ -55,11 +55,11 @@ export function ProjectFeed({ projects }: { projects: Project[] }) {
   return (
     <section
       className="w-full px-6 pt-28 pb-24 md:px-10 md:pt-36"
-      style={{ perspective: "1400px" }}
+      style={{ perspective: "1000px" }}
     >
       <ul
         ref={listRef}
-        className="mx-auto max-w-md md:max-w-2xl"
+        className="mx-auto max-w-lg md:max-w-3xl"
         style={{ transformStyle: "preserve-3d" }}
       >
         {tripled.map((project, i) => (
