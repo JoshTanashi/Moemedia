@@ -53,15 +53,8 @@ export function ProjectFeed({ projects }: { projects: Project[] }) {
   const tripled = [...projects, ...projects, ...projects];
 
   return (
-    <section
-      className="w-full px-6 pt-28 pb-24 md:px-10 md:pt-36"
-      style={{ perspective: "500px" }}
-    >
-      <ul
-        ref={listRef}
-        className="mx-auto max-w-lg md:max-w-3xl"
-        style={{ transformStyle: "preserve-3d" }}
-      >
+    <section className="w-full px-6 pt-28 pb-24 md:px-10 md:pt-36">
+      <ul ref={listRef} className="mx-auto max-w-lg md:max-w-3xl">
         {tripled.map((project, i) => (
           <ProjectCard key={`${project.title}-${i}`} project={project} />
         ))}
