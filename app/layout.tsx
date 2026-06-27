@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { SmoothScroll } from "./components/SmoothScroll";
+import { AmbientBackground } from "./components/AmbientBackground";
 
 const plusJakarta = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta",
@@ -24,6 +25,7 @@ export default function RootLayout({
     <html lang="en" className={`${plusJakarta.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-cream text-ink">
         <SmoothScroll />
+        <AmbientBackground />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

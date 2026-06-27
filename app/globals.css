@@ -24,3 +24,13 @@ body {
   color: var(--color-ink);
   font-family: var(--font-sans);
 }
+
+@keyframes ambient-drift {
+  to {
+    background-position: 64px 64px;
+  }
+}
+
+.animate-ambient-drift {
+  animation: ambient-drift 16s linear infinite;
+}

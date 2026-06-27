@@ -48,7 +48,7 @@ export function ProjectRow({
         rel="noreferrer noopener"
         className="hidden items-baseline justify-between gap-6 py-7 md:flex"
       >
-        <span className="text-3xl font-medium tracking-tight text-ink transition-colors duration-300 group-hover:text-accent md:text-4xl">
+        <span className="text-3xl font-medium tracking-tight text-ink transition-colors duration-300 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:text-accent md:text-4xl">
           {project.title}
         </span>
         <span className="text-sm tracking-widest text-ink-soft">
