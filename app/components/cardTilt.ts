@@ -1,5 +1,5 @@
-export const CARD_TILT_ENTER = { rotateX: 52, scale: 0.68, opacity: 0.22 };
-export const CARD_TILT_EXIT = { rotateX: -30, scale: 0.78, opacity: 0.4 };
+export const CARD_TILT_ENTER = { rotateX: 16, scale: 0.92, opacity: 0.4 };
+export const CARD_TILT_EXIT = { rotateX: -12, scale: 0.94, opacity: 0.5 };
 
 const lerp = (a: number, b: number, p: number) => a + (b - a) * p;
 

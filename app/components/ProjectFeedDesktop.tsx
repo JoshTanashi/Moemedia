@@ -76,17 +76,7 @@ export function ProjectFeedDesktop({ projects }: { projects: Project[] }) {
   return (
     <section className="relative hidden h-[1000vh] md:block">
       <div className="sticky top-0 h-screen overflow-hidden bg-cream">
-        <div
-          className="absolute flex gap-10 px-20 py-16"
-          style={{
-            top: "-12%",
-            left: "-10%",
-            width: "120%",
-            height: "124%",
-            transform: "rotate(5deg)",
-            transformOrigin: "70% 10%",
-          }}
-        >
+        <div className="absolute inset-0 flex gap-6 px-12 py-10">
           {COLUMN_CONFIG.map((cfg, i) => (
             <DesktopColumn
               key={i}
