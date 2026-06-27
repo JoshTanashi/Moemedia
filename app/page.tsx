@@ -1,6 +1,6 @@
-import { ProjectGrid } from "./components/ProjectGrid";
+import { ProjectList } from "./components/ProjectList";
 import { projects } from "@/data/projects";
 
 export default function Home() {
-  return <ProjectGrid projects={projects} />;
+  return <ProjectList projects={projects} />;
 }
