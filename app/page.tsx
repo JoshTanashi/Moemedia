@@ -1,6 +1,6 @@
-import { ProjectList } from "./components/ProjectList";
+import { ProjectFeed } from "./components/ProjectFeed";
 import { projects } from "@/data/projects";
 
 export default function Home() {
-  return <ProjectList projects={projects} />;
+  return <ProjectFeed projects={projects} />;
 }
