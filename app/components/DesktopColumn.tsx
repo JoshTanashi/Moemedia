@@ -63,7 +63,11 @@ export const DesktopColumn = forwardRef<
   );
 
   return (
-    <div ref={containerRef} className="relative h-full flex-1 overflow-hidden">
+    <div
+      ref={containerRef}
+      className="relative h-full flex-1 overflow-hidden"
+      style={{ transformStyle: "preserve-3d" }}
+    >
       <ul
         ref={trackRef}
         className="absolute inset-x-0 top-0"

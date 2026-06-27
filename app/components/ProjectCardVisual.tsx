@@ -4,17 +4,18 @@ import type { Project } from "@/data/projects";
 export const ProjectCardVisual = forwardRef<HTMLDivElement, { project: Project }>(
   function ProjectCardVisual({ project }, ref) {
     return (
-      <li className="px-1 py-6 md:px-0 md:py-3">
+      <li className="px-1 py-6 md:px-0 md:py-3" style={{ transformStyle: "preserve-3d" }}>
         <a
           href={project.href}
           target="_blank"
           rel="noreferrer noopener"
           className="block"
+          style={{ transformStyle: "preserve-3d" }}
         >
           <div
             ref={ref}
             className="origin-bottom will-change-transform"
-            style={{ transformOrigin: "50% 100%" }}
+            style={{ transformOrigin: "50% 100%", transformStyle: "preserve-3d" }}
           >
             <div className="flex items-center justify-between border border-line bg-cream-deep/60 px-5 py-3.5">
               <span className="text-base font-medium tracking-tight text-ink md:text-lg">

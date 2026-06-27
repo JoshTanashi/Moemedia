@@ -55,7 +55,7 @@ export function ProjectFeed({ projects }: { projects: Project[] }) {
   return (
     <section
       className="w-full px-6 pt-28 pb-24 md:px-10 md:pt-36"
-      style={{ perspective: "800px" }}
+      style={{ perspective: "500px" }}
     >
       <ul
         ref={listRef}
