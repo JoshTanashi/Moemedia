@@ -4,7 +4,7 @@ import type { Project } from "@/data/projects";
 export const ProjectCardVisual = forwardRef<HTMLDivElement, { project: Project }>(
   function ProjectCardVisual({ project }, ref) {
     return (
-      <li className="px-1 py-6 md:px-0 md:py-10">
+      <li className="px-1 py-6 md:px-0 md:py-3">
         <a
           href={project.href}
           target="_blank"

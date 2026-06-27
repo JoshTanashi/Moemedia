@@ -1,23 +1,20 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import type Lenis from "lenis";
+import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 import type { Project } from "@/data/projects";
 import { ProjectCardVisual } from "./ProjectCardVisual";
 import { cardTiltAt } from "./cardTilt";
-import { getLenis } from "@/lib/lenis";
 
 const COPIES = 4;
 
-export function DesktopColumn({
-  projects,
-  speed,
-  offsetFraction,
-}: {
-  projects: Project[];
-  speed: number;
-  offsetFraction: number;
-}) {
+export type DesktopColumnHandle = {
+  applyOffset: (virtualScroll: number) => void;
+};
+
+export const DesktopColumn = forwardRef<
+  DesktopColumnHandle,
+  { projects: Project[]; speed: number; offsetFraction: number }
+>(function DesktopColumn({ projects, speed, offsetFraction }, ref) {
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLUListElement>(null);
   const cardRefs = useRef<HTMLDivElement[]>([]);
@@ -26,47 +23,44 @@ export function DesktopColumn({
   const repeated = Array.from({ length: COPIES }, () => projects).flat();
 
   useEffect(() => {
-    const container = containerRef.current;
     const track = trackRef.current;
-    if (!container || !track) return;
+    if (!track) return;
 
     const measure = () => {
       cycleHeightRef.current = track.scrollHeight / COPIES;
     };
     measure();
 
-    const lenis = getLenis();
-    if (!lenis) return;
-
-    const update = (scroll: number) => {
-      const cycle = cycleHeightRef.current;
-      if (cycle <= 0) return;
-
-      const raw = scroll * speed + offsetFraction * cycle;
-      const wrapped = ((raw % cycle) + cycle) % cycle;
-      track.style.transform = `translate3d(0, ${-wrapped}px, 0)`;
-
-      const containerHeight = container.clientHeight;
-      cardRefs.current.forEach((cardEl) => {
-        if (!cardEl) return;
-        const cardTop = cardEl.offsetTop - wrapped;
-        const cardCenter = cardTop + cardEl.offsetHeight / 2;
-        const { rotateX, scale, opacity } = cardTiltAt(cardCenter / containerHeight);
-        cardEl.style.transform = `rotateX(${rotateX}deg) scale(${scale})`;
-        cardEl.style.opacity = String(opacity);
-      });
-    };
-
-    update(lenis.scroll);
-    const handleScroll = (instance: Lenis) => update(instance.scroll);
-    lenis.on("scroll", handleScroll);
     window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [projects]);
 
-    return () => {
-      lenis.off("scroll", handleScroll);
-      window.removeEventListener("resize", measure);
-    };
-  }, [projects, speed, offsetFraction]);
+  useImperativeHandle(
+    ref,
+    () => ({
+      applyOffset(virtualScroll: number) {
+        const track = trackRef.current;
+        const container = containerRef.current;
+        const cycle = cycleHeightRef.current;
+        if (!track || !container || cycle <= 0) return;
+
+        const raw = virtualScroll * speed + offsetFraction * cycle;
+        const wrapped = ((raw % cycle) + cycle) % cycle;
+        track.style.transform = `translate3d(0, ${-wrapped}px, 0)`;
+
+        const containerHeight = container.clientHeight;
+        cardRefs.current.forEach((cardEl) => {
+          if (!cardEl) return;
+          const cardTop = cardEl.offsetTop - wrapped;
+          const cardCenter = cardTop + cardEl.offsetHeight / 2;
+          const { rotateX, scale, opacity } = cardTiltAt(cardCenter / containerHeight);
+          cardEl.style.transform = `rotateX(${rotateX}deg) scale(${scale})`;
+          cardEl.style.opacity = String(opacity);
+        });
+      },
+    }),
+    [speed, offsetFraction],
+  );
 
   return (
     <div ref={containerRef} className="relative h-full flex-1 overflow-hidden">
@@ -87,4 +81,4 @@ export function DesktopColumn({
       </ul>
     </div>
   );
-}
+});
