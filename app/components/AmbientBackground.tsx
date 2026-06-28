@@ -53,7 +53,7 @@ export function AmbientBackground() {
           ref={(el) => {
             if (el) smokeRefs.current[i] = el;
           }}
-          className="absolute rounded-full opacity-[0.1] blur-3xl"
+          className="absolute rounded-full opacity-[0.045] blur-[120px]"
           style={{
             width: blob.size,
             height: blob.size,

@@ -5,6 +5,7 @@ import type Lenis from "lenis";
 import type { Project } from "@/data/projects";
 import { DesktopColumn, type DesktopColumnHandle } from "./DesktopColumn";
 import { getLenis } from "@/lib/lenis";
+import { EdgeFadeOverlay } from "./EdgeFadeOverlay";
 
 const COLUMN_CONFIG = [
   { speed: 0.82, offsetFraction: 0 },
@@ -76,7 +77,7 @@ export function ProjectFeedDesktop({ projects }: { projects: Project[] }) {
   return (
     <section className="relative hidden h-[1000vh] md:block">
       <div className="sticky top-0 h-screen overflow-hidden bg-cream">
-        <div className="absolute inset-0 flex gap-6 px-12 py-10">
+        <div className="absolute inset-0 flex gap-4 px-4 py-0">
           {COLUMN_CONFIG.map((cfg, i) => (
             <DesktopColumn
               key={i}
@@ -89,6 +90,8 @@ export function ProjectFeedDesktop({ projects }: { projects: Project[] }) {
             />
           ))}
         </div>
+        <EdgeFadeOverlay side="top" />
+        <EdgeFadeOverlay side="bottom" />
       </div>
     </section>
   );

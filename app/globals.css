@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-  --color-cream: #f3ece0;
-  --color-cream-deep: #ebe1d1;
-  --color-ink: #231f1a;
-  --color-ink-soft: #5c5346;
-  --color-line: #d8cbb5;
-  --color-accent: #b9542f;
+  --color-cream: #ffffff;
+  --color-cream-deep: #f0f0f0;
+  --color-ink: #111111;
+  --color-ink-soft: #6b6b6b;
+  --color-line: #d9d9d9;
+  --color-accent: #404040;
 
   --font-sans: var(--font-plus-jakarta), ui-sans-serif, system-ui, sans-serif;
 

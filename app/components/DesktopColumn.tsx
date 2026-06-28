@@ -4,6 +4,7 @@ import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 import type { Project } from "@/data/projects";
 import { ProjectCardVisual } from "./ProjectCardVisual";
 import { cardTiltAt } from "./cardTilt";
+import { useIntroContext } from "./IntroContext";
 
 const COPIES = 4;
 
@@ -19,6 +20,8 @@ export const DesktopColumn = forwardRef<
   const trackRef = useRef<HTMLUListElement>(null);
   const cardRefs = useRef<HTMLDivElement[]>([]);
   const cycleHeightRef = useRef(0);
+  const introCtx = useIntroContext();
+  const introUnregisterRefs = useRef<(() => void)[]>([]);
 
   const repeated = Array.from({ length: COPIES }, () => projects).flat();
 
@@ -78,6 +81,10 @@ export const DesktopColumn = forwardRef<
             project={project}
             ref={(el) => {
               if (el) cardRefs.current[i] = el;
+            }}
+            introRef={(el) => {
+              introUnregisterRefs.current[i]?.();
+              introUnregisterRefs.current[i] = el ? introCtx?.register(el) ?? (() => {}) : () => {};
             }}
           />
         ))}

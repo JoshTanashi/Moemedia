@@ -6,11 +6,14 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { Project } from "@/data/projects";
 import { ProjectCardVisual } from "./ProjectCardVisual";
 import { CARD_TILT_ENTER, CARD_TILT_EXIT } from "./cardTilt";
+import { useIntroContext } from "./IntroContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export function ProjectCard({ project }: { project: Project }) {
   const cardRef = useRef<HTMLDivElement>(null);
+  const introCtx = useIntroContext();
+  const unregisterRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
     const el = cardRef.current;
@@ -43,5 +46,14 @@ export function ProjectCard({ project }: { project: Project }) {
     };
   }, []);
 
-  return <ProjectCardVisual project={project} ref={cardRef} />;
+  return (
+    <ProjectCardVisual
+      project={project}
+      ref={cardRef}
+      introRef={(el) => {
+        unregisterRef.current?.();
+        unregisterRef.current = el ? introCtx?.register(el) ?? null : null;
+      }}
+    />
+  );
 }

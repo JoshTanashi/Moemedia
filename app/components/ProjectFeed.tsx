@@ -5,6 +5,7 @@ import type Lenis from "lenis";
 import type { Project } from "@/data/projects";
 import { ProjectCard } from "./ProjectCard";
 import { getLenis } from "@/lib/lenis";
+import { EdgeFadeOverlay } from "./EdgeFadeOverlay";
 
 export function ProjectFeed({ projects }: { projects: Project[] }) {
   const listRef = useRef<HTMLUListElement>(null);
@@ -54,6 +55,7 @@ export function ProjectFeed({ projects }: { projects: Project[] }) {
 
   return (
     <section className="w-full px-6 pt-28 pb-24 md:px-10 md:pt-36">
+      <EdgeFadeOverlay side="top" variant="fixed" className="top-16 md:top-20" />
       <ul ref={listRef} className="mx-auto max-w-lg md:max-w-3xl">
         {tripled.map((project, i) => (
           <ProjectCard key={`${project.title}-${i}`} project={project} />
