@@ -5,7 +5,7 @@ export type Project = {
 };
 
 export const projects: Project[] = [
-  { title: "Aurora Studio", thumbnailSrc: "/projects/placeholder-1.svg", href: "https://example.com/aurora-studio" },
+  { title: "Redbatch", thumbnailSrc: "/projects/placeholder-1.svg", href: "https://redbatch.store" },
   { title: "Northwind Coffee", thumbnailSrc: "/projects/placeholder-2.svg", href: "https://example.com/northwind-coffee" },
   { title: "Ferro & Co", thumbnailSrc: "/projects/placeholder-3.svg", href: "https://example.com/ferro-co" },
   { title: "Quiet Hours", thumbnailSrc: "/projects/placeholder-4.svg", href: "https://example.com/quiet-hours" },
