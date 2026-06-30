@@ -5,9 +5,10 @@ import gsap from "gsap";
 import type { Project } from "@/data/projects";
 import { ProjectCard } from "./ProjectCard";
 
-const COLUMN_SPEEDS = [1.0, 0.92, 1.08, 0.96];
+const COLUMN_SPEEDS = [1.2, 0.82, 1.2, 0.82];
 const CARDS_PER_COLUMN = 9;
 const COPIES = 3;
+const PAN_RANGE = 0.08;
 
 function buildColumn(projects: Project[], colIndex: number, count: number) {
   const out: Project[] = [];
@@ -19,7 +20,9 @@ function buildColumn(projects: Project[], colIndex: number, count: number) {
 
 export function GalleryDesktop({ projects }: { projects: Project[] }) {
   const columnRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const rowRef = useRef<HTMLDivElement>(null);
   const cycleHeights = useRef<number[]>([0, 0, 0, 0]);
+  const lastWrapped = useRef<number[]>([0, 0, 0, 0]);
   const scrollProgress = useRef(0);
 
   useEffect(() => {
@@ -35,13 +38,24 @@ export function GalleryDesktop({ projects }: { projects: Project[] }) {
     measure();
     window.addEventListener("resize", measure);
 
+    const columnSetters = columnRefs.current.map((col) =>
+      col ? gsap.quickTo(col, "y", { duration: 0.6, ease: "power3.out" }) : null,
+    );
+
     const applyColumn = (i: number) => {
       const col = columnRefs.current[i];
       const cycle = cycleHeights.current[i];
-      if (!col || cycle <= 0) return;
+      const setter = columnSetters[i];
+      if (!col || !setter || cycle <= 0) return;
       const raw = scrollProgress.current * COLUMN_SPEEDS[i];
       const wrapped = ((raw % cycle) + cycle) % cycle;
-      gsap.to(col, { y: -wrapped, duration: 0.9, ease: "power3.out", overwrite: true });
+      const prev = lastWrapped.current[i];
+      if (Math.abs(wrapped - prev) > cycle / 2) {
+        gsap.set(col, { y: -wrapped });
+      } else {
+        setter(-wrapped);
+      }
+      lastWrapped.current[i] = wrapped;
     };
 
     const handleWheel = (e: WheelEvent) => {
@@ -51,6 +65,16 @@ export function GalleryDesktop({ projects }: { projects: Project[] }) {
     };
 
     window.addEventListener("wheel", handleWheel, { passive: false });
+
+    const rowEl = rowRef.current;
+    const panX = rowEl ? gsap.quickTo(rowEl, "x", { duration: 0.8, ease: "power3.out" }) : null;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!panX) return;
+      const normalized = e.clientX / window.innerWidth - 0.5;
+      panX(-normalized * 2 * PAN_RANGE * window.innerWidth);
+    };
+    window.addEventListener("mousemove", handleMouseMove);
 
     const handleReady = () => {
       gsap.fromTo(
@@ -64,13 +88,14 @@ export function GalleryDesktop({ projects }: { projects: Project[] }) {
     return () => {
       window.removeEventListener("resize", measure);
       window.removeEventListener("wheel", handleWheel);
+      window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("app:ready", handleReady);
     };
   }, [projects]);
 
   return (
     <div className="gallery-pc PC hidden md:block">
-      <div className="gallery-row">
+      <div className="gallery-row" ref={rowRef}>
         {COLUMN_SPEEDS.map((_, i) => {
           const colProjects = buildColumn(projects, i, CARDS_PER_COLUMN);
           const repeated = Array.from({ length: COPIES }, () => colProjects).flat();

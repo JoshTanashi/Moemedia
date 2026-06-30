@@ -3,7 +3,6 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { Header } from "./components/Header";
 import { LoadingScreen } from "./components/LoadingScreen";
-import { GlitchCanvas } from "./components/GlitchCanvas";
 import { PageTransition } from "./components/PageTransition";
 
 const montserrat = Montserrat({
@@ -26,7 +25,6 @@ export default function RootLayout({
     <html lang="en" className={`${montserrat.variable} h-full antialiased`}>
       <body className="min-h-full bg-cream text-ink">
         <LoadingScreen />
-        <GlitchCanvas />
         <Header />
         <main>
           <PageTransition>{children}</PageTransition>

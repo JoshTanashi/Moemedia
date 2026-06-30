@@ -44,24 +44,12 @@ export function ProjectCard({ project, eager = false }: { project: Project; eage
     return () => observer.disconnect();
   }, [eager]);
 
-  const handleMouseEnter = () => {
-    window.dispatchEvent(
-      new CustomEvent("card-glitch-enter", { detail: { image: project.thumbnailSrc } }),
-    );
-  };
-
-  const handleMouseLeave = () => {
-    window.dispatchEvent(new CustomEvent("card-glitch-leave"));
-  };
-
   return (
     <a
       href={project.href}
       target="_blank"
       rel="noreferrer noopener"
       className="browser-card"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
     >
       <div className="browser-chrome">
         <span className="browser-dots">
