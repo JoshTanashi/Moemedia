@@ -9,6 +9,8 @@ const COLUMN_SPEEDS = [1.2, 0.82, 1.2, 0.82];
 const CARDS_PER_COLUMN = 9;
 const COPIES = 3;
 const PAN_RANGE = 0.08;
+const SCROLL_LERP = 0.12;
+const MAX_WHEEL_DELTA = 120;
 
 function buildColumn(projects: Project[], colIndex: number, count: number) {
   const out: Project[] = [];
@@ -22,7 +24,7 @@ export function GalleryDesktop({ projects }: { projects: Project[] }) {
   const columnRefs = useRef<(HTMLDivElement | null)[]>([]);
   const rowRef = useRef<HTMLDivElement>(null);
   const cycleHeights = useRef<number[]>([0, 0, 0, 0]);
-  const lastWrapped = useRef<number[]>([0, 0, 0, 0]);
+  const displayedRaw = useRef<number[]>([0, 0, 0, 0]);
   const scrollProgress = useRef(0);
 
   useEffect(() => {
@@ -38,33 +40,35 @@ export function GalleryDesktop({ projects }: { projects: Project[] }) {
     measure();
     window.addEventListener("resize", measure);
 
-    const columnSetters = columnRefs.current.map((col) =>
-      col ? gsap.quickTo(col, "y", { duration: 0.6, ease: "power3.out" }) : null,
-    );
-
-    const applyColumn = (i: number) => {
-      const col = columnRefs.current[i];
-      const cycle = cycleHeights.current[i];
-      const setter = columnSetters[i];
-      if (!col || !setter || cycle <= 0) return;
-      const raw = scrollProgress.current * COLUMN_SPEEDS[i];
-      const wrapped = ((raw % cycle) + cycle) % cycle;
-      const prev = lastWrapped.current[i];
-      if (Math.abs(wrapped - prev) > cycle / 2) {
-        gsap.set(col, { y: -wrapped });
-      } else {
-        setter(-wrapped);
-      }
-      lastWrapped.current[i] = wrapped;
-    };
-
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
-      scrollProgress.current += e.deltaY;
-      for (let i = 0; i < COLUMN_SPEEDS.length; i++) applyColumn(i);
+      const delta = Math.max(-MAX_WHEEL_DELTA, Math.min(MAX_WHEEL_DELTA, e.deltaY));
+      scrollProgress.current += delta;
     };
-
     window.addEventListener("wheel", handleWheel, { passive: false });
+
+    // The column scroll is driven entirely by this rAF loop: target/displayed
+    // positions live in continuous (unbounded) space and are lerped there,
+    // with `% cycle` wrapping applied only at the final DOM write. That keeps
+    // every written frame visually seamless (content repeats every `cycle`
+    // px) and avoids the jump/rebound glitch you get from snapping a value
+    // that a GSAP tween is still actively interpolating toward.
+    let rafId = 0;
+    const tick = () => {
+      for (let i = 0; i < COLUMN_SPEEDS.length; i++) {
+        const col = columnRefs.current[i];
+        const cycle = cycleHeights.current[i];
+        if (!col || cycle <= 0) continue;
+        const target = scrollProgress.current * COLUMN_SPEEDS[i];
+        displayedRaw.current[i] += (target - displayedRaw.current[i]) * SCROLL_LERP;
+        if (!gsap.isTweening(col)) {
+          const wrapped = ((displayedRaw.current[i] % cycle) + cycle) % cycle;
+          gsap.set(col, { y: -wrapped });
+        }
+      }
+      rafId = requestAnimationFrame(tick);
+    };
+    rafId = requestAnimationFrame(tick);
 
     const rowEl = rowRef.current;
     const panX = rowEl ? gsap.quickTo(rowEl, "x", { duration: 0.8, ease: "power3.out" }) : null;
@@ -86,6 +90,7 @@ export function GalleryDesktop({ projects }: { projects: Project[] }) {
     window.addEventListener("app:ready", handleReady);
 
     return () => {
+      cancelAnimationFrame(rafId);
       window.removeEventListener("resize", measure);
       window.removeEventListener("wheel", handleWheel);
       window.removeEventListener("mousemove", handleMouseMove);
