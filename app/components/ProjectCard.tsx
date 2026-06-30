@@ -10,6 +10,9 @@ export function ProjectCard({ project, eager = false }: { project: Project; eage
     const el = imageRef.current;
     if (!el) return;
 
+    el.dataset.loaded = "";
+    el.style.opacity = "0";
+
     const load = () => {
       const src = el.dataset.image;
       if (!src || el.dataset.loaded) return;
@@ -42,7 +45,7 @@ export function ProjectCard({ project, eager = false }: { project: Project; eage
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, [eager]);
+  }, [eager, project.thumbnailSrc]);
 
   return (
     <a

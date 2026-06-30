@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import type { Project } from "@/data/projects";
 import { ProjectCard } from "./ProjectCard";
@@ -20,12 +20,22 @@ function buildColumn(projects: Project[], colIndex: number, count: number) {
   return out;
 }
 
+function pickReplacement(pool: Project[], exclude: Set<string>) {
+  const candidates = pool.filter((p) => !exclude.has(p.title));
+  const choices = candidates.length > 0 ? candidates : pool;
+  return choices[Math.floor(Math.random() * choices.length)];
+}
+
 export function GalleryDesktop({ projects }: { projects: Project[] }) {
   const columnRefs = useRef<(HTMLDivElement | null)[]>([]);
   const rowRef = useRef<HTMLDivElement>(null);
   const cycleHeights = useRef<number[]>([0, 0, 0, 0]);
   const displayedRaw = useRef<number[]>([0, 0, 0, 0]);
   const scrollProgress = useRef(0);
+
+  const [columns, setColumns] = useState<Project[][]>(() =>
+    COLUMN_SPEEDS.map((_, i) => buildColumn(projects, i, CARDS_PER_COLUMN)),
+  );
 
   useEffect(() => {
     const media = window.matchMedia("(min-width: 768px)");
@@ -89,12 +99,56 @@ export function GalleryDesktop({ projects }: { projects: Project[] }) {
     };
     window.addEventListener("app:ready", handleReady);
 
+    // Cards never resize when their content swaps (fixed image aspect-ratio,
+    // single-line title), so reshuffling never invalidates cycleHeights or
+    // the wrap math above. A card only swaps once it has fully left the
+    // viewport (tracked via `seen`, so cards never visited yet are left
+    // alone), so the wrap loop never has to render a swap mid-frame.
+    const seen = new WeakSet<Element>();
+    const cardEls = rowEl ? Array.from(rowEl.querySelectorAll<HTMLElement>(".gallery-card-wrap")) : [];
+    const reshuffleObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            seen.add(entry.target);
+            return;
+          }
+          if (!seen.has(entry.target)) return;
+
+          const el = entry.target as HTMLElement;
+          const colIndex = Number(el.dataset.col);
+          const slotIndex = Number(el.dataset.slot);
+          if (Number.isNaN(colIndex) || Number.isNaN(slotIndex)) return;
+
+          setColumns((prev) => {
+            const slotArr = prev[colIndex];
+            const total = slotArr.length;
+            const before = slotArr[(slotIndex - 1 + total) % total];
+            const current = slotArr[slotIndex];
+            const after = slotArr[(slotIndex + 1) % total];
+            const exclude = new Set([before.title, current.title, after.title]);
+            const replacement = pickReplacement(projects, exclude);
+            if (replacement.title === current.title) return prev;
+
+            const nextSlotArr = slotArr.slice();
+            nextSlotArr[slotIndex] = replacement;
+            const next = prev.slice();
+            next[colIndex] = nextSlotArr;
+            return next;
+          });
+        });
+      },
+      { threshold: 0 },
+    );
+    cardEls.forEach((el) => reshuffleObserver.observe(el));
+
     return () => {
       cancelAnimationFrame(rafId);
       window.removeEventListener("resize", measure);
       window.removeEventListener("wheel", handleWheel);
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("app:ready", handleReady);
+      reshuffleObserver.disconnect();
     };
   }, [projects]);
 
@@ -102,8 +156,7 @@ export function GalleryDesktop({ projects }: { projects: Project[] }) {
     <div className="gallery-pc PC hidden md:block">
       <div className="gallery-row" ref={rowRef}>
         {COLUMN_SPEEDS.map((_, i) => {
-          const colProjects = buildColumn(projects, i, CARDS_PER_COLUMN);
-          const repeated = Array.from({ length: COPIES }, () => colProjects).flat();
+          const repeated = Array.from({ length: COPIES }, () => columns[i]).flat();
           return (
             <div
               key={i}
@@ -113,7 +166,12 @@ export function GalleryDesktop({ projects }: { projects: Project[] }) {
               }}
             >
               {repeated.map((project, j) => (
-                <div className="gallery-card-wrap" key={`${project.title}-${i}-${j}`}>
+                <div
+                  className="gallery-card-wrap"
+                  key={`${i}-${j}`}
+                  data-col={i}
+                  data-slot={j % CARDS_PER_COLUMN}
+                >
                   <ProjectCard project={project} />
                 </div>
               ))}
