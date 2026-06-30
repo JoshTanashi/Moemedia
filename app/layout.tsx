@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { Header } from "./components/Header";
-import { Footer } from "./components/Footer";
-import { SmoothScroll } from "./components/SmoothScroll";
-import { AmbientBackground } from "./components/AmbientBackground";
+import { LoadingScreen } from "./components/LoadingScreen";
+import { GlitchCanvas } from "./components/GlitchCanvas";
+import { PageTransition } from "./components/PageTransition";
 
-const plusJakarta = Plus_Jakarta_Sans({
-  variable: "--font-plus-jakarta",
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
   subsets: ["latin"],
+  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
@@ -22,13 +23,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${plusJakarta.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-cream text-ink">
-        <SmoothScroll />
-        <AmbientBackground />
+    <html lang="en" className={`${montserrat.variable} h-full antialiased`}>
+      <body className="min-h-full bg-cream text-ink">
+        <LoadingScreen />
+        <GlitchCanvas />
         <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <main>
+          <PageTransition>{children}</PageTransition>
+        </main>
       </body>
     </html>
   );

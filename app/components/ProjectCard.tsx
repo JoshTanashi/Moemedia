@@ -1,59 +1,79 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { Project } from "@/data/projects";
-import { ProjectCardVisual } from "./ProjectCardVisual";
-import { CARD_TILT_ENTER, CARD_TILT_EXIT } from "./cardTilt";
-import { useIntroContext } from "./IntroContext";
 
-gsap.registerPlugin(ScrollTrigger);
-
-export function ProjectCard({ project }: { project: Project }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const introCtx = useIntroContext();
-  const unregisterRef = useRef<(() => void) | null>(null);
+export function ProjectCard({ project, eager = false }: { project: Project; eager?: boolean }) {
+  const imageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const el = cardRef.current;
+    const el = imageRef.current;
     if (!el) return;
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: el,
-        start: "top bottom",
-        end: "bottom top",
-        scrub: true,
-      },
-    });
-
-    tl.fromTo(
-      el,
-      { rotateX: CARD_TILT_ENTER.rotateX, scale: CARD_TILT_ENTER.scale, opacity: CARD_TILT_ENTER.opacity },
-      { rotateX: 0, scale: 1, opacity: 1, ease: "none", duration: 0.5 },
-    ).to(el, {
-      rotateX: CARD_TILT_EXIT.rotateX,
-      scale: CARD_TILT_EXIT.scale,
-      opacity: CARD_TILT_EXIT.opacity,
-      ease: "none",
-      duration: 0.5,
-    });
-
-    return () => {
-      tl.scrollTrigger?.kill();
-      tl.kill();
+    const load = () => {
+      const src = el.dataset.image;
+      if (!src || el.dataset.loaded) return;
+      el.dataset.loaded = "true";
+      const img = new Image();
+      img.onload = () => {
+        el.style.backgroundImage = `url(${src})`;
+        requestAnimationFrame(() => {
+          el.style.opacity = "1";
+        });
+      };
+      img.src = src;
     };
-  }, []);
+
+    if (eager) {
+      load();
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            load();
+            observer.disconnect();
+          }
+        });
+      },
+      { rootMargin: "200px" },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [eager]);
+
+  const handleMouseEnter = () => {
+    window.dispatchEvent(
+      new CustomEvent("card-glitch-enter", { detail: { image: project.thumbnailSrc } }),
+    );
+  };
+
+  const handleMouseLeave = () => {
+    window.dispatchEvent(new CustomEvent("card-glitch-leave"));
+  };
 
   return (
-    <ProjectCardVisual
-      project={project}
-      ref={cardRef}
-      introRef={(el) => {
-        unregisterRef.current?.();
-        unregisterRef.current = el ? introCtx?.register(el) ?? null : null;
-      }}
-    />
+    <a
+      href={project.href}
+      target="_blank"
+      rel="noreferrer noopener"
+      className="browser-card"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div className="browser-chrome">
+        <span className="browser-dots">
+          <i style={{ background: "#FF5F57" }} />
+          <i style={{ background: "#FEBC2E" }} />
+          <i style={{ background: "#28C840" }} />
+        </span>
+        <span className="browser-url-pill">
+          {project.title} <span className="browser-url-role">— {project.role}</span>
+        </span>
+      </div>
+      <div ref={imageRef} className="browser-image" data-image={project.thumbnailSrc} />
+    </a>
   );
 }
