@@ -224,15 +224,43 @@ body:not(.is-show) .gallery-root {
   color: #999;
 }
 
-.browser-image {
+.browser-body {
+  position: relative;
   width: 100%;
   aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background-color: #f0f0f0;
+}
+
+.browser-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   background-color: #f0f0f0;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   opacity: 0;
   transition: opacity 450ms ease;
+}
+
+.browser-preview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1280px;
+  height: 800px;
+  border: none;
+  pointer-events: none;
+  transform-origin: top left;
+  transform: scale(var(--preview-scale, 0.25));
+  opacity: 0;
+  transition: opacity 350ms ease 100ms;
+}
+
+.browser-card:hover .browser-preview {
+  opacity: 1;
 }
 
 /* ----------------------------------------------------------------

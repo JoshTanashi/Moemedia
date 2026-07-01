@@ -1,10 +1,26 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Project } from "@/data/projects";
 
 export function ProjectCard({ project, eager = false }: { project: Project; eager?: boolean }) {
+  const cardRef = useRef<HTMLAnchorElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
+  const [iframeSrc, setIframeSrc] = useState<string | null>(null);
+  const hasLiveUrl = project.href !== "#";
+
+  // Keep --preview-scale in sync with the card's actual rendered width so the
+  // iframe (rendered at 1280px) scales down to fill the card precisely.
+  useEffect(() => {
+    const card = cardRef.current;
+    if (!card || !hasLiveUrl) return;
+    const ro = new ResizeObserver((entries) => {
+      const w = entries[0].contentRect.width;
+      card.style.setProperty("--preview-scale", String(w / 1280));
+    });
+    ro.observe(card);
+    return () => ro.disconnect();
+  }, [hasLiveUrl]);
 
   useEffect(() => {
     const el = imageRef.current;
@@ -49,10 +65,14 @@ export function ProjectCard({ project, eager = false }: { project: Project; eage
 
   return (
     <a
+      ref={cardRef}
       href={project.href}
       target="_blank"
       rel="noreferrer noopener"
       className="browser-card"
+      onMouseEnter={() => {
+        if (hasLiveUrl && !iframeSrc) setIframeSrc(project.href);
+      }}
     >
       <div className="browser-chrome">
         <span className="browser-dots">
@@ -64,7 +84,17 @@ export function ProjectCard({ project, eager = false }: { project: Project; eage
           {project.title} <span className="browser-url-role">— {project.role}</span>
         </span>
       </div>
-      <div ref={imageRef} className="browser-image" data-image={project.thumbnailSrc} />
+      <div className="browser-body">
+        <div ref={imageRef} className="browser-image" data-image={project.thumbnailSrc} />
+        {iframeSrc && (
+          <iframe
+            src={iframeSrc}
+            className="browser-preview"
+            title={project.title}
+            tabIndex={-1}
+          />
+        )}
+      </div>
     </a>
   );
 }
