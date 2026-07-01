@@ -1,9 +1,17 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import type { Project } from "@/data/projects";
 
-export function ProjectCard({ project, eager = false }: { project: Project; eager?: boolean }) {
+export const ProjectCard = memo(function ProjectCard({
+  project,
+  eager = false,
+  forceActive = false,
+}: {
+  project: Project;
+  eager?: boolean;
+  forceActive?: boolean;
+}) {
   const cardRef = useRef<HTMLAnchorElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
   const [iframeSrc, setIframeSrc] = useState<string | null>(null);
@@ -21,6 +29,11 @@ export function ProjectCard({ project, eager = false }: { project: Project; eage
     ro.observe(card);
     return () => ro.disconnect();
   }, [hasLiveUrl]);
+
+  // Mobile: auto-load preview when this card is snapped to center.
+  useEffect(() => {
+    if (forceActive && hasLiveUrl && !iframeSrc) setIframeSrc(project.href);
+  }, [forceActive, hasLiveUrl, iframeSrc, project.href]);
 
   useEffect(() => {
     const el = imageRef.current;
@@ -69,7 +82,7 @@ export function ProjectCard({ project, eager = false }: { project: Project; eage
       href={project.href}
       target="_blank"
       rel="noreferrer noopener"
-      className="browser-card"
+      className={`browser-card${forceActive ? " browser-card--active" : ""}`}
       onMouseEnter={() => {
         if (hasLiveUrl && !iframeSrc) setIframeSrc(project.href);
       }}
@@ -97,4 +110,4 @@ export function ProjectCard({ project, eager = false }: { project: Project; eage
       </div>
     </a>
   );
-}
+});
