@@ -132,10 +132,10 @@ export function WorkGallery() {
         </p>
       </header>
       {/* Mobile: flat list. Desktop: two drifting columns. */}
-      <div className="work-grid md:hidden">
+      <div className="work-grid work-grid--mobile">
         {projects.map((_, i) => renderCard(i))}
       </div>
-      <div className="work-grid hidden md:grid">
+      <div className="work-grid work-grid--desktop">
         <div className="work-col">{left.map((p) => renderCard(projects.indexOf(p)))}</div>
         <div className="work-col work-col--offset">
           {right.map((p) => renderCard(projects.indexOf(p)))}

@@ -218,7 +218,7 @@ body.is-show .site-shell {
 
 .site-logo-mark {
   width: 2.8rem;
-  height: 2.4rem;
+  height: auto;
   flex: none;
 }
 
@@ -300,7 +300,7 @@ body.is-show .site-shell {
 
   .site-logo-mark {
     width: 3.2rem;
-    height: 2.7rem;
+    height: auto;
   }
 
   .site-nav {
@@ -1085,6 +1085,13 @@ body.is-show .site-shell {
   gap: 4rem;
 }
 
+/* Explicit (not Tailwind hidden/md:*) so this doesn't get swallowed by
+   Tailwind's @layer utilities cascade layer, which loses to any unlayered
+   rule regardless of media-query specificity. */
+.work-grid--desktop {
+  display: none;
+}
+
 .gallery-card-wrap {
   will-change: transform, opacity;
 }
@@ -1096,6 +1103,14 @@ body.is-show .site-shell {
 
   .work-intro {
     margin-bottom: 8rem;
+  }
+
+  .work-grid--mobile {
+    display: none;
+  }
+
+  .work-grid--desktop {
+    display: grid;
   }
 
   .work-grid {
@@ -1151,31 +1166,15 @@ body.is-show .site-shell {
 .loading-mark {
   width: min(16rem, 34vw);
   height: auto;
-}
-
-.loading-mark .brand-ribbon {
   opacity: 0;
-  transform: translateY(14px) rotate(-3deg);
-  transform-origin: center;
-  animation: ribbon-in 700ms cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  transform: scale(0.92);
+  animation: mark-in 700ms cubic-bezier(0.19, 1, 0.22, 1) 100ms forwards;
 }
 
-.loading-mark .brand-ribbon--1 {
-  animation-delay: 100ms;
-}
-
-.loading-mark .brand-ribbon--2 {
-  animation-delay: 240ms;
-}
-
-.loading-mark .brand-ribbon--3 {
-  animation-delay: 380ms;
-}
-
-@keyframes ribbon-in {
+@keyframes mark-in {
   to {
     opacity: 1;
-    transform: translateY(0) rotate(0deg);
+    transform: scale(1);
   }
 }
 
@@ -1399,7 +1398,7 @@ body.is-show .site-shell {
     animation: none;
   }
 
-  .loading-mark .brand-ribbon {
+  .loading-mark {
     animation: none;
     opacity: 1;
     transform: none;
