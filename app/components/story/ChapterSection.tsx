@@ -2,7 +2,7 @@ import Image from "next/image";
 import { type Business, statusLabel } from "@/data/businesses";
 import { ProjectCard } from "../ProjectCard";
 import { Eyebrow } from "../ui/Eyebrow";
-import { CircleScribble } from "../ui/HandDrawn";
+import { RibbonUnderline } from "../ui/RibbonStroke";
 import { Monogram } from "../ui/Monogram";
 import { StatBlock } from "../ui/StatBlock";
 
@@ -44,9 +44,9 @@ export function ChapterSection({
           </div>
           <h2 className="chapter-name font-display" data-reveal>
             {index === 0 ? (
-              <span className="chapter-scribble">
+              <span className="chapter-underline">
                 {business.name}
-                <CircleScribble />
+                <RibbonUnderline />
               </span>
             ) : (
               business.name

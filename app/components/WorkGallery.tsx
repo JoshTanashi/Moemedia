@@ -124,7 +124,7 @@ export function WorkGallery() {
       <header className="work-intro">
         <Eyebrow>Selected Work</Eyebrow>
         <h1 className="work-title font-display">
-          Things you can <em>click</em>.
+          Things you can <span className="text-gradient">click</span>.
         </h1>
         <p className="work-sub">
           Every card below is a real window — hover or pause on one and the

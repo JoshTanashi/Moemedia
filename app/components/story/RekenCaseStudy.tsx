@@ -8,13 +8,13 @@ const PROOF_LINES = [
 
 export function RekenCaseStudy() {
   return (
-    <section id="reken" className="reken" data-chapter data-accent="#c9a16b" data-rail="reken">
+    <section id="reken" className="reken" data-chapter data-accent="#00cfa7" data-rail="reken">
       <div className="reken-inner" data-reken-inner>
         <div data-reveal>
           <Eyebrow>Proof, not promises</Eyebrow>
         </div>
         <h2 className="reken-title font-display" data-reveal>
-          <em className="text-gold">Reken</em>
+          <span className="text-gradient">Reken</span>
         </h2>
         <p className="reken-copy" data-reveal>
           Reken is an app I built that a small retail business runs on every

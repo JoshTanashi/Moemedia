@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Montserrat } from "next/font/google";
+import { Manrope } from "next/font/google";
 import "./globals.css";
 import { Header } from "./components/Header";
 import { LoadingScreen } from "./components/LoadingScreen";
@@ -7,17 +7,10 @@ import { PageTransition } from "./components/PageTransition";
 import { SiteFooter } from "./components/SiteFooter";
 import { GrainOverlay } from "./components/ui/GrainOverlay";
 
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-});
-
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-  axes: ["SOFT", "WONK", "opsz"],
+const manrope = Manrope({
+  variable: "--font-manrope",
+  // latin-ext covers the dotless ı used by the wordmark's green tittle
+  subsets: ["latin", "latin-ext"],
 });
 
 export const metadata: Metadata = {
@@ -38,7 +31,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a0a0b",
+  themeColor: "#0f1211",
 };
 
 export default function RootLayout({
@@ -47,17 +40,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${montserrat.variable} ${fraunces.variable} h-full antialiased`}
-    >
+    <html lang="en" className={`${manrope.variable} h-full antialiased`}>
       <body className="min-h-full bg-night text-bone">
         <LoadingScreen />
-        <Header />
-        <main>
-          <PageTransition>{children}</PageTransition>
-        </main>
-        <SiteFooter />
+        <div className="site-shell">
+          <Header />
+          <main>
+            <PageTransition>{children}</PageTransition>
+          </main>
+          <SiteFooter />
+        </div>
         <GrainOverlay />
       </body>
     </html>

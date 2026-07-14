@@ -13,7 +13,7 @@ export default function AboutPage() {
     <section className="inner-page">
       <Eyebrow>About</Eyebrow>
       <h1 className="inner-title font-display">
-        One founder, <em className="text-gold">several front doors.</em>
+        One founder, <span className="text-gradient">several front doors.</span>
       </h1>
       <div className="inner-copy">
         <p>
@@ -25,11 +25,11 @@ export default function AboutPage() {
         </p>
         <p>
           If you want the full picture,{" "}
-          <Link href="/" className="text-bone underline underline-offset-4 hover:text-gold">
+          <Link href="/" className="text-bone underline underline-offset-4 hover:text-brand">
             read the story
           </Link>{" "}
           or{" "}
-          <Link href="/work" className="text-bone underline underline-offset-4 hover:text-gold">
+          <Link href="/work" className="text-bone underline underline-offset-4 hover:text-brand">
             click through the work
           </Link>
           . Everything shown is real and reachable.

@@ -10,7 +10,7 @@ import { RekenCaseStudy } from "./RekenCaseStudy";
 import { Epilogue } from "./Epilogue";
 import { ChapterRail } from "./ChapterRail";
 
-const GOLD = "#c9a16b";
+const BRAND = "#00cfa7";
 
 function prepareDrawPaths(scope: Element): SVGPathElement[] {
   const paths = Array.from(scope.querySelectorAll<SVGPathElement>("[data-draw]"));
@@ -146,11 +146,11 @@ export function StoryPage({ businesses }: { businesses: Business[] }) {
         };
 
         const accentZones: Array<{ el: Element; accent: string; rail?: string }> = [];
-        if (prologue) accentZones.push({ el: prologue, accent: GOLD });
+        if (prologue) accentZones.push({ el: prologue, accent: BRAND });
         root.querySelectorAll<HTMLElement>("[data-chapter]").forEach((section) => {
           accentZones.push({
             el: section,
-            accent: section.dataset.accent ?? GOLD,
+            accent: section.dataset.accent ?? BRAND,
             rail: section.dataset.rail,
           });
         });

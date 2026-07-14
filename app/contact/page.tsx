@@ -12,7 +12,7 @@ export default function ContactPage() {
     <section className="inner-page">
       <Eyebrow>Contact</Eyebrow>
       <h1 className="inner-title font-display">
-        Talk to the person <em className="text-gold">who built it.</em>
+        Talk to the person <span className="text-gradient">who built it.</span>
       </h1>
       <div className="inner-copy">
         <p>

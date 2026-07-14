@@ -1,18 +1,18 @@
 import Link from "next/link";
 import { Eyebrow } from "../ui/Eyebrow";
 import { CTAButton } from "../ui/CTAButton";
-import { UnderlineStroke } from "../ui/HandDrawn";
+import { RibbonUnderline } from "../ui/RibbonStroke";
 
 export function Epilogue() {
   return (
-    <section className="story-section epilogue" data-chapter data-accent="#c9a16b">
+    <section className="story-section epilogue" data-chapter data-accent="#00cfa7">
       <div data-reveal>
         <Eyebrow>Epilogue</Eyebrow>
       </div>
       <h2 className="epilogue-title font-display" data-reveal>
         <span className="hero-underline">
           Let&apos;s talk.
-          <UnderlineStroke />
+          <RibbonUnderline />
         </span>
       </h2>
       <p className="epilogue-copy" data-reveal>

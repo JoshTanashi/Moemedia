@@ -2,10 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import { projects } from "@/data/projects";
-import { ProjectCard } from "./ProjectCard";
+import { BrandMark } from "./ui/BrandMark";
+import { Wordmark } from "./ui/Wordmark";
 
 const PRELOAD_COUNT = 4;
-const FINISH_DELAY = 400;
+const FINISH_DELAY = 900; // let the ribbon animation land before releasing
 const HIDE_TRANSITION = 800;
 
 function preloadImage(src: string) {
@@ -19,16 +20,11 @@ function preloadImage(src: string) {
 
 export function LoadingScreen() {
   const screenRef = useRef<HTMLDivElement>(null);
-  const featuredRef = useRef<HTMLDivElement>(null);
-  const [featuredVisible, setFeaturedVisible] = useState(false);
+  const brandRef = useRef<HTMLDivElement>(null);
   const [unmounted, setUnmounted] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
-
-    requestAnimationFrame(() => {
-      if (!cancelled) setFeaturedVisible(true);
-    });
 
     const fontsReady =
       typeof document !== "undefined" && "fonts" in document
@@ -45,12 +41,11 @@ export function LoadingScreen() {
 
     function finish() {
       const screen = screenRef.current;
-      const featured = featuredRef.current;
-      if (!screen || !featured) return;
-
-      featured.classList.add("is-finish");
+      const brand = brandRef.current;
+      if (!screen || !brand) return;
 
       window.setTimeout(() => {
+        brand.classList.add("is-finish");
         screen.classList.add("is-hidden");
         document.body.classList.add("is-show");
         window.dispatchEvent(new CustomEvent("app:ready"));
@@ -70,9 +65,10 @@ export function LoadingScreen() {
 
   return (
     <div ref={screenRef} className="loading-screen" aria-hidden>
-      <div ref={featuredRef} className={`loading-featured ${featuredVisible ? "is-visible" : ""}`}>
-        <ProjectCard project={projects[0]} eager />
-        <span className="loading-spinner" />
+      <div ref={brandRef} className="loading-brand">
+        <BrandMark className="loading-mark" />
+        <Wordmark className="loading-wordmark" />
+        <span className="loading-bar" />
       </div>
     </div>
   );

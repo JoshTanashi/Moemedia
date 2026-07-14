@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MobileMenu } from "./MobileMenu";
+import { BrandMark } from "./ui/BrandMark";
+import { Wordmark } from "./ui/Wordmark";
 
 const NAV_LINKS = [
   { href: "/", label: "Story" },
@@ -27,8 +29,14 @@ export function Header() {
   return (
     <>
       <header className={`site-header ${scrolled ? "is-scrolled" : ""}`}>
-        <Link href="/" className="site-logo" onClick={() => setMenuOpen(false)}>
-          MOEMEDIA
+        <Link
+          href="/"
+          className="site-logo"
+          aria-label="Moemedia home"
+          onClick={() => setMenuOpen(false)}
+        >
+          <BrandMark className="site-logo-mark" />
+          <Wordmark />
         </Link>
         <nav className="site-nav" aria-label="Primary">
           {NAV_LINKS.map((link) => (
