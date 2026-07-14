@@ -1,25 +1,38 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import { Eyebrow } from "../components/ui/Eyebrow";
+
+export const metadata: Metadata = {
+  title: "About",
+  description:
+    "Who is behind Moemedia — one founder building small companies and the software that runs them.",
+};
 
 export default function AboutPage() {
   return (
-    <section className="w-full px-[4rem] pt-[14rem] pb-[8rem]">
-      <div className="mx-auto max-w-[70rem]">
-        <h1 className="text-[6rem] font-medium tracking-tight text-ink">About</h1>
-        <p className="mt-[3rem] text-[1.6rem] leading-relaxed text-ink-soft">
-          Moemedia is a small studio building considered, content-first sites
-          for brands and creators. This page is a placeholder — a proper bio
-          is coming soon.
+    <section className="inner-page">
+      <Eyebrow>About</Eyebrow>
+      <h1 className="inner-title font-display">
+        One founder, <span className="text-gradient">several front doors.</span>
+      </h1>
+      <div className="inner-copy">
+        <p>
+          Moemedia is not an agency — it&apos;s the name over the door for
+          everything I build: my own brands like Red-Batch, tools like Workdesk
+          and Reken, and sites for businesses that trust me with their front
+          door. Each one is small on purpose. Small means I can own the whole
+          thing — the product, the design, the code, and the consequences.
         </p>
-        <p className="mt-[2rem] text-[1.6rem] leading-relaxed text-ink-soft">
-          Browse the work on the{" "}
-          <Link href="/" className="text-ink underline-offset-4 hover:underline">
-            homepage
-          </Link>
-          , or get in touch on the{" "}
-          <Link href="/contact" className="text-ink underline-offset-4 hover:underline">
-            contact
+        <p>
+          If you want the full picture,{" "}
+          <Link href="/" className="text-bone underline underline-offset-4 hover:text-brand">
+            read the story
           </Link>{" "}
-          page.
+          or{" "}
+          <Link href="/work" className="text-bone underline underline-offset-4 hover:text-brand">
+            click through the work
+          </Link>
+          . Everything shown is real and reachable.
         </p>
       </div>
     </section>

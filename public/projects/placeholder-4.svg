@@ -1,5 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
-  <rect width="800" height="600" fill="#d9d9d9"/>
-  <circle cx="250" cy="220" r="40" fill="#111111" opacity="0.12"/>
-  <circle cx="550" cy="400" r="55" fill="#404040" opacity="0.2"/>
+  <rect width="800" height="600" fill="#171a19"/>
+  <circle cx="400" cy="300" r="72" fill="none" stroke="#00cfa7" stroke-width="1.5" stroke-dasharray="6 8" opacity="0.5"/>
+  <circle cx="400" cy="300" r="5" fill="#00cfa7" opacity="0.7"/>
+  <text x="400" y="416" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" letter-spacing="4" fill="#93a09b">IN THE WORKS</text>
 </svg>
