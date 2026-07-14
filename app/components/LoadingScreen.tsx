@@ -66,7 +66,7 @@ export function LoadingScreen() {
   return (
     <div ref={screenRef} className="loading-screen" aria-hidden>
       <div ref={brandRef} className="loading-brand">
-        <BrandMark className="loading-mark" />
+        <BrandMark className="loading-mark" priority />
         <Wordmark className="loading-wordmark" />
         <span className="loading-bar" />
       </div>

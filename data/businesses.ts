@@ -56,14 +56,16 @@ export const businesses: Business[] = [
     tagline: "Making a young company feel established.",
     story: [
       "Sandstorm Group needed to look like it had history before it had much of one. My job was the digital front door: structure, tone, and a site that earns trust on the first visit.",
-      "Built — the URL lands here the moment it ships.",
+      "It's live now — go have a look.",
     ],
     accent: "#d9a441",
+    liveUrl: "https://sandstormgroup.co.za",
+    thumbnailSrc: "/projects/sandstorm.jpg",
     stats: [
       { label: "Role", value: "Design & build" },
-      { label: "Status", value: "Pre-launch" },
+      { label: "Status", value: "Live" },
     ],
-    status: "in-progress",
+    status: "live",
   },
   {
     slug: "workdesk",
@@ -90,14 +92,16 @@ export const businesses: Business[] = [
     tagline: "A front door that earns a parent's trust in ten seconds.",
     story: [
       "Lewis Tutoring is a one-person business, and its website has one job: make a parent feel they've found the right tutor before they've finished scrolling.",
-      "Built and in the owner's hands; going live soon.",
+      "Built, handed over, and live — book a first lesson straight from the site.",
     ],
     accent: "#6f9cd6",
+    liveUrl: "https://lewis-tutoring.vercel.app",
+    thumbnailSrc: "/projects/lewis-tutoring.jpg",
     stats: [
       { label: "Role", value: "Design & build" },
-      { label: "Status", value: "Handover" },
+      { label: "Status", value: "Live" },
     ],
-    status: "in-progress",
+    status: "live",
   },
   {
     slug: "jml-photography",
@@ -105,14 +109,16 @@ export const businesses: Business[] = [
     kind: "Photography brand",
     tagline: "Nothing between the work and the viewer.",
     story: [
-      "JML Photography Studios is a photography brand I'm building the online home for. The brief I set myself: image-first, interface-last.",
-      "In progress — when it ships, the shots do the talking.",
+      "JML Photography Studios is a photography brand I built the online home for. The brief I set myself: image-first, interface-last.",
+      "It's live — the shots do the talking.",
     ],
     accent: "#c8c3ba",
+    liveUrl: "https://jml-photograghy.vercel.app",
+    thumbnailSrc: "/projects/jml-photography.jpg",
     stats: [
       { label: "Role", value: "Design & build" },
-      { label: "Status", value: "In studio" },
+      { label: "Status", value: "Live" },
     ],
-    status: "in-progress",
+    status: "live",
   },
 ];
