@@ -1,12 +1,6 @@
-import { GalleryDesktop } from "./components/GalleryDesktop";
-import { GalleryMobile } from "./components/GalleryMobile";
-import { projects } from "@/data/projects";
+import { businesses } from "@/data/businesses";
+import { StoryPage } from "./components/story/StoryPage";
 
 export default function Home() {
-  return (
-    <div className="gallery-root">
-      <GalleryDesktop projects={projects} />
-      <GalleryMobile projects={projects} />
-    </div>
-  );
+  return <StoryPage businesses={businesses} />;
 }

@@ -6,7 +6,7 @@ import { ProjectCard } from "./ProjectCard";
 
 const PRELOAD_COUNT = 4;
 const FINISH_DELAY = 400;
-const HIDE_TRANSITION = 2000;
+const HIDE_TRANSITION = 800;
 
 function preloadImage(src: string) {
   return new Promise<void>((resolve) => {

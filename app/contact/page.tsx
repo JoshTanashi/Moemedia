@@ -1,18 +1,27 @@
+import type { Metadata } from "next";
+import { CTAButton } from "../components/ui/CTAButton";
+import { Eyebrow } from "../components/ui/Eyebrow";
+
+export const metadata: Metadata = {
+  title: "Contact",
+  description: "Get in touch with Moemedia — I answer my own email.",
+};
+
 export default function ContactPage() {
   return (
-    <section className="w-full px-[4rem] pt-[14rem] pb-[8rem]">
-      <div className="mx-auto max-w-[70rem]">
-        <h1 className="text-[6rem] font-medium tracking-tight text-ink">Contact</h1>
-        <p className="mt-[3rem] text-[1.6rem] leading-relaxed text-ink-soft">
-          Have a project in mind? Reach out and let&apos;s talk about it.
+    <section className="inner-page">
+      <Eyebrow>Contact</Eyebrow>
+      <h1 className="inner-title font-display">
+        Talk to the person <em className="text-gold">who built it.</em>
+      </h1>
+      <div className="inner-copy">
+        <p>
+          Investor questions, project enquiries, or a straight &quot;how did you
+          make this?&quot; — all of it lands in the same inbox, and I answer my
+          own email.
         </p>
-        <a
-          href="mailto:hello@moemedia.com"
-          className="mt-[2rem] inline-block text-[1.8rem] font-medium text-ink underline-offset-4 hover:underline"
-        >
-          hello@moemedia.com
-        </a>
       </div>
+      <CTAButton href="mailto:hello@moemedia.com">hello@moemedia.com</CTAButton>
     </section>
   );
 }
