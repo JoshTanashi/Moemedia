@@ -4,7 +4,7 @@ import { Eyebrow } from "../components/ui/Eyebrow";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Get in touch with Moemedia — I answer my own email.",
+  description: "Get in touch with Moemedia — I answer my own WhatsApp.",
 };
 
 export default function ContactPage() {
@@ -17,11 +17,13 @@ export default function ContactPage() {
       <div className="inner-copy">
         <p>
           Investor questions, project enquiries, or a straight &quot;how did you
-          make this?&quot; — all of it lands in the same inbox, and I answer my
-          own email.
+          make this?&quot; — all of it lands in the same chat, and I answer my
+          own WhatsApp.
         </p>
       </div>
-      <CTAButton href="mailto:hello@moemedia.com">hello@moemedia.com</CTAButton>
+      <CTAButton href="https://wa.me/27699384562" target="_blank" rel="noreferrer noopener">
+        069 938 4562
+      </CTAButton>
     </section>
   );
 }

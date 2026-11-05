@@ -43,10 +43,12 @@ export function SiteFooter() {
           <div className="footer-col">
             <h3>Contact</h3>
             <span className="footer-email">
-              <a href="mailto:hello@moemedia.com">hello@moemedia.com</a>
+              <a href="https://wa.me/27699384562" target="_blank" rel="noreferrer noopener">
+                069 938 4562
+              </a>
               <RibbonSwoosh />
             </span>
-            <span className="footer-muted">I answer my own email.</span>
+            <span className="footer-muted">I answer my own WhatsApp.</span>
           </div>
         </div>
         <div className="footer-bottom">

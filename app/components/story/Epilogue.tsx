@@ -19,10 +19,12 @@ export function Epilogue() {
         That&apos;s the story so far — five ventures at different stages, one
         product a real business depends on, all of it built by one founder.
         If you&apos;re an investor who backs people who ship, or you want your
-        own thing built properly: I answer my own email.
+        own thing built properly: I answer my own WhatsApp.
       </p>
       <div className="epilogue-actions" data-reveal>
-        <CTAButton href="mailto:hello@moemedia.com">hello@moemedia.com</CTAButton>
+        <CTAButton href="https://wa.me/27699384562" target="_blank" rel="noreferrer noopener">
+          069 938 4562
+        </CTAButton>
         <Link href="/work" className="text-link">
           See the work →
         </Link>

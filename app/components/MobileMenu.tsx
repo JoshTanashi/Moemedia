@@ -117,8 +117,13 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
           ))}
         </div>
       </nav>
-      <a href="mailto:hello@moemedia.com" className="mobile-menu-email">
-        hello@moemedia.com
+      <a
+        href="https://wa.me/27699384562"
+        target="_blank"
+        rel="noreferrer noopener"
+        className="mobile-menu-email"
+      >
+        069 938 4562
       </a>
     </div>
   );
