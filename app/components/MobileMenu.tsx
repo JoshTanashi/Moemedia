@@ -117,14 +117,19 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
           ))}
         </div>
       </nav>
-      <a
-        href="https://wa.me/27699384562"
-        target="_blank"
-        rel="noreferrer noopener"
-        className="mobile-menu-email"
-      >
-        069 938 4562
-      </a>
+      <div className="mobile-menu-contacts">
+        <a
+          href="https://wa.me/27699384562"
+          target="_blank"
+          rel="noreferrer noopener"
+          className="mobile-menu-email"
+        >
+          069 938 4562
+        </a>
+        <a href="mailto:joshua@moemedia.co.za" className="mobile-menu-email">
+          joshua@moemedia.co.za
+        </a>
+      </div>
     </div>
   );
 }

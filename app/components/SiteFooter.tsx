@@ -48,7 +48,8 @@ export function SiteFooter() {
               </a>
               <RibbonSwoosh />
             </span>
-            <span className="footer-muted">I answer my own WhatsApp.</span>
+            <a href="mailto:joshua@moemedia.co.za">joshua@moemedia.co.za</a>
+            <span className="footer-muted">I answer both myself.</span>
           </div>
         </div>
         <div className="footer-bottom">
