@@ -6,6 +6,10 @@ import { RibbonUnderline } from "../ui/RibbonStroke";
 export function Epilogue() {
   return (
     <section className="story-section epilogue" data-chapter data-accent="#00cfa7">
+      <div className="aurora" aria-hidden>
+        <div className="aurora-blob aurora-blob--a" />
+        <div className="aurora-blob aurora-blob--b" />
+      </div>
       <div data-reveal>
         <Eyebrow>Epilogue</Eyebrow>
       </div>

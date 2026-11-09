@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "./components/Header";
 import { LoadingScreen } from "./components/LoadingScreen";
@@ -7,8 +7,8 @@ import { PageTransition } from "./components/PageTransition";
 import { SiteFooter } from "./components/SiteFooter";
 import { GrainOverlay } from "./components/ui/GrainOverlay";
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+const inter = Inter({
+  variable: "--font-inter",
   // latin-ext covers the dotless ı used by the wordmark's green tittle
   subsets: ["latin", "latin-ext"],
 });
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0f1211",
+  themeColor: "#f5f5f7",
 };
 
 export default function RootLayout({
@@ -40,8 +40,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${manrope.variable} h-full antialiased`}>
-      <body className="min-h-full bg-night text-bone">
+    <html lang="en" className={`${inter.variable} h-full antialiased`}>
+      <body className="min-h-full bg-canvas text-ink">
         <LoadingScreen />
         <div className="site-shell">
           <Header />
