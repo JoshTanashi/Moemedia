@@ -326,7 +326,7 @@ body.is-show .site-shell {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 10rem 2.4rem 4rem;
+  padding: 10rem 2.4rem 5.6rem;
   clip-path: inset(0 0 100% 0);
   visibility: hidden;
   overflow-y: auto;
@@ -383,6 +383,12 @@ body.is-show .site-shell {
   font-weight: 500;
   color: var(--color-bone-dim);
   text-decoration: none;
+}
+
+.mobile-menu-contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
 }
 
 .mobile-menu-email {
@@ -1380,6 +1386,13 @@ body.is-show .site-shell {
   font-size: var(--text-body-lg);
   line-height: var(--text-body-lg--line-height);
   color: var(--color-bone-dim);
+}
+
+.inner-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2.4rem;
 }
 
 @media (min-width: 768px) {
