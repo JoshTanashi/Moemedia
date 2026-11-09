@@ -6,6 +6,11 @@ import { RibbonArrowDown, RibbonUnderline } from "../ui/RibbonStroke";
 export function Prologue() {
   return (
     <section className="story-section prologue" data-prologue>
+      <div className="aurora" aria-hidden>
+        <div className="aurora-blob aurora-blob--a" />
+        <div className="aurora-blob aurora-blob--b" />
+        <div className="aurora-blob aurora-blob--c" />
+      </div>
       <Eyebrow>Moemedia — Create · Connect · Grow</Eyebrow>
       <h1 className="prologue-title font-display" data-prologue-title>
         <span className="hero-line">

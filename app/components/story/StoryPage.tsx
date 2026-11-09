@@ -11,6 +11,7 @@ import { Epilogue } from "./Epilogue";
 import { ChapterRail } from "./ChapterRail";
 
 const BRAND = "#00cfa7";
+const SPRING = "back.out(1.6)";
 
 function prepareDrawPaths(scope: Element): SVGPathElement[] {
   const paths = Array.from(scope.querySelectorAll<SVGPathElement>("[data-draw]"));
@@ -64,15 +65,15 @@ export function StoryPage({ businesses }: { businesses: Business[] }) {
 
           const intro = gsap
             .timeline({ paused: true })
-            .to(eyebrow, { autoAlpha: 1, y: 0, duration: 0.6, ease: "power3.out" })
+            .to(eyebrow, { autoAlpha: 1, y: 0, duration: 0.7, ease: SPRING })
             .to(
               heroLines,
               { yPercent: 0, duration: 1, ease: "expo.out", stagger: 0.09 },
-              "-=0.3",
+              "-=0.4",
             )
             .to(underline, { strokeDashoffset: 0, duration: 0.7, ease: "power2.inOut" }, "-=0.5")
-            .to(sub, { autoAlpha: 1, y: 0, duration: 0.7, ease: "power3.out" }, "-=0.5")
-            .to(cue, { autoAlpha: 1, y: 0, duration: 0.6, ease: "power3.out" }, "-=0.35")
+            .to(sub, { autoAlpha: 1, y: 0, duration: 0.8, ease: SPRING }, "-=0.5")
+            .to(cue, { autoAlpha: 1, y: 0, duration: 0.7, ease: SPRING }, "-=0.4")
             .call(() => {
               if (cueArrow) {
                 gsap.to(cueArrow, {
@@ -119,8 +120,8 @@ export function StoryPage({ businesses }: { businesses: Business[] }) {
           tl.to(items, {
             autoAlpha: 1,
             y: 0,
-            duration: 0.9,
-            ease: "power3.out",
+            duration: 1,
+            ease: SPRING,
             stagger: 0.1,
           });
           if (strokes.length) {
@@ -201,7 +202,7 @@ export function StoryPage({ businesses }: { businesses: Business[] }) {
               .to(rule, { scaleX: 1, duration: 0.8, ease: "power2.inOut" })
               .to(
                 proofs,
-                { autoAlpha: 1, y: 0, duration: 0.7, ease: "power3.out", stagger: 0.12 },
+                { autoAlpha: 1, y: 0, duration: 0.8, ease: SPRING, stagger: 0.12 },
                 "-=0.3",
               );
           }
@@ -229,6 +230,33 @@ export function StoryPage({ businesses }: { businesses: Business[] }) {
               );
             if (numeral) drift(numeral, 60, -60);
             if (media) drift(media, 40, -40);
+          });
+
+          // Subtle pointer-reactive tilt on each chapter's media card —
+          // the rotation lands on the [data-media] wrapper itself, never
+          // the card inside it, so it composes with the card's own CSS
+          // hover-lift transform instead of fighting it for the same
+          // `transform` property.
+          root.querySelectorAll<HTMLElement>("[data-media]").forEach((mediaEl) => {
+            const setRotateX = gsap.quickTo(mediaEl, "rotateX", { duration: 0.5, ease: "power2.out" });
+            const setRotateY = gsap.quickTo(mediaEl, "rotateY", { duration: 0.5, ease: "power2.out" });
+            const onMove = (e: MouseEvent) => {
+              const rect = mediaEl.getBoundingClientRect();
+              const px = (e.clientX - rect.left) / rect.width - 0.5;
+              const py = (e.clientY - rect.top) / rect.height - 0.5;
+              setRotateY(px * 8);
+              setRotateX(py * -8);
+            };
+            const onLeave = () => {
+              setRotateX(0);
+              setRotateY(0);
+            };
+            mediaEl.addEventListener("mousemove", onMove);
+            mediaEl.addEventListener("mouseleave", onLeave);
+            cleanups.push(() => {
+              mediaEl.removeEventListener("mousemove", onMove);
+              mediaEl.removeEventListener("mouseleave", onLeave);
+            });
           });
         }
 

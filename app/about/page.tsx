@@ -25,11 +25,11 @@ export default function AboutPage() {
         </p>
         <p>
           If you want the full picture,{" "}
-          <Link href="/" className="text-bone underline underline-offset-4 hover:text-brand">
+          <Link href="/" className="text-ink underline underline-offset-4 hover:text-brand">
             read the story
           </Link>{" "}
           or{" "}
-          <Link href="/work" className="text-bone underline underline-offset-4 hover:text-brand">
+          <Link href="/work" className="text-ink underline underline-offset-4 hover:text-brand">
             click through the work
           </Link>
           . Everything shown is real and reachable.

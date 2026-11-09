@@ -112,7 +112,7 @@ export const businesses: Business[] = [
       "JML Photography Studios is a photography brand I built the online home for. The brief I set myself: image-first, interface-last.",
       "It's live — the shots do the talking.",
     ],
-    accent: "#c8c3ba",
+    accent: "#9c9488",
     liveUrl: "https://jml-photograghy.vercel.app",
     thumbnailSrc: "/projects/jml-photography.jpg",
     stats: [

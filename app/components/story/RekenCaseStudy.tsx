@@ -1,9 +1,16 @@
 import { Eyebrow } from "../ui/Eyebrow";
+import { StatBlock } from "../ui/StatBlock";
 
 const PROOF_LINES = [
   "A real business, using it daily",
   "Designed, built and maintained by one person",
   "Kept not by a contract, but because it works",
+];
+
+const REKEN_STATS = [
+  { label: "Ventures built", value: "5" },
+  { label: "Founder", value: "1" },
+  { label: "Real & live", value: "100%" },
 ];
 
 export function RekenCaseStudy() {
@@ -31,6 +38,9 @@ export function RekenCaseStudy() {
             </li>
           ))}
         </ol>
+        <div data-reveal>
+          <StatBlock stats={REKEN_STATS} />
+        </div>
       </div>
     </section>
   );

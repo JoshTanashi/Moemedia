@@ -19,8 +19,8 @@ export default function Image() {
           flexDirection: "column",
           justifyContent: "center",
           padding: "80px",
-          background: "#0f1211",
-          color: "#f5f5f5",
+          background: "#f5f5f7",
+          color: "#1d1d1f",
           fontFamily: "sans-serif",
         }}
       >
@@ -31,7 +31,7 @@ export default function Image() {
             gap: 28,
             fontSize: 26,
             letterSpacing: "0.28em",
-            color: "#93a09b",
+            color: "#6e6e73",
           }}
         >
           <div
@@ -71,7 +71,7 @@ export default function Image() {
             gap: 20,
             fontSize: 32,
             marginTop: 32,
-            color: "#93a09b",
+            color: "#6e6e73",
             letterSpacing: "0.12em",
           }}
         >
