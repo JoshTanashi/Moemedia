@@ -968,7 +968,7 @@ body {
 }
 
 .tile--moe {
-  padding-bottom: 4.8rem;
+  padding: 0 2rem;
 }
 
 .tile--moe .chips {
@@ -1665,26 +1665,44 @@ body {
   font-size: 1.6rem;
 }
 
-/* ---------- Moe mode: the page goes dark around Moe ---------- */
+/* ---------- Moe section: dark, with sunset/sunrise bridges ---------- */
 body,
-.nav,
-.tile--moe,
 .footer {
   transition:
-    background-color 0.6s var(--ease),
-    color 0.6s var(--ease),
-    border-color 0.6s var(--ease);
+    background-color 0.9s var(--ease),
+    color 0.9s var(--ease),
+    border-color 0.9s var(--ease);
+}
+
+/* The nav blends toward dark as it travels through the bridges (--moe set by MoeMode). */
+.nav {
+  background: color-mix(in srgb, rgb(5 8 7 / 0.8) calc(var(--moe, 0) * 100%), rgb(255 255 255 / 0.8));
+  border-bottom-color: color-mix(
+    in srgb,
+    rgb(255 255 255 / 0.08) calc(var(--moe, 0) * 100%),
+    rgb(0 0 0 / 0.06)
+  );
+}
+
+.nav-link,
+.nav .wordmark {
+  color: color-mix(in srgb, #f5f5f7 calc(var(--moe, 0) * 100%), var(--color-ink));
+}
+
+.menu-toggle span {
+  background: color-mix(in srgb, #f5f5f7 calc(var(--moe, 0) * 100%), var(--color-ink));
+}
+
+.tile--moe {
+  background: #050807;
+  color: #f5f5f7;
 }
 
 .tile--moe::before {
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(55% 40% at 50% 58%, rgba(0, 207, 167, 0.22), transparent 70%),
-    radial-gradient(40% 30% at 50% 10%, rgba(60, 235, 139, 0.1), transparent 70%);
-  opacity: 0;
-  transition: opacity 0.8s var(--ease);
+  background: radial-gradient(55% 30% at 50% 55%, rgba(0, 207, 167, 0.2), transparent 70%);
   pointer-events: none;
 }
 
@@ -1693,66 +1711,180 @@ body,
   z-index: 1;
 }
 
+.tile--moe .tile-kicker {
+  color: var(--color-brand-green);
+}
+
+.tile--moe .tile-body,
+.tile--moe .tile-honest {
+  color: #a1a1a6;
+}
+
+.tile--moe .moe-call {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+}
+
+.tile--moe .moe-does li {
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.tile--moe .chip {
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+}
+
+.tile--moe .chip strong {
+  color: var(--color-brand-green);
+}
+
+.tile--moe .phone {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.18),
+    inset 0 0 0 3px #050606,
+    0 30px 60px rgba(0, 0, 0, 0.5),
+    0 0 100px rgba(0, 207, 167, 0.18);
+}
+
+/* Bridges: white melts into Moe's night (sunset) and light rises back (sunrise). */
+.moe-bridge {
+  align-self: stretch;
+  height: clamp(22rem, 38vh, 36rem);
+  margin: 0 -2rem;
+  overflow: hidden;
+  view-timeline: --bridge block;
+}
+
+.moe-bridge--in {
+  margin-bottom: 2.4rem;
+  background: linear-gradient(
+    to bottom,
+    #ffffff 0%,
+    #f2faf7 14%,
+    #cdebe2 30%,
+    #6fb8a5 48%,
+    #1d5146 66%,
+    #0a1a16 84%,
+    #050807 100%
+  );
+}
+
+.moe-bridge--out {
+  margin-top: 4.8rem;
+  background: linear-gradient(
+    to top,
+    #ffffff 0%,
+    #f2faf7 14%,
+    #cdebe2 30%,
+    #6fb8a5 48%,
+    #1d5146 66%,
+    #0a1a16 84%,
+    #050807 100%
+  );
+}
+
+/* The sun: a soft glow sitting on the light edge of each bridge */
+.moe-bridge::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 150%;
+  aspect-ratio: 2 / 1;
+  background: radial-gradient(
+    closest-side,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 246, 222, 0.7) 24%,
+    rgba(255, 236, 196, 0.35) 42%,
+    rgba(120, 235, 200, 0.18) 62%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+/* Keeps the outer edge pure white so the seam with the next section is invisible */
+.moe-bridge::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 18%;
+  pointer-events: none;
+}
+
+.moe-bridge--in::before {
+  top: 0;
+  transform: translate(-50%, -50%);
+  animation: sunset linear both;
+  animation-timeline: --bridge;
+  animation-range: cover 10% cover 75%;
+}
+
+.moe-bridge--in::after {
+  top: 0;
+  background: linear-gradient(to bottom, #ffffff, rgba(255, 255, 255, 0));
+}
+
+.moe-bridge--out::before {
+  bottom: 0;
+  transform: translate(-50%, 50%);
+  animation: sunrise linear both;
+  animation-timeline: --bridge;
+  animation-range: cover 0% cover 65%;
+}
+
+.moe-bridge--out::after {
+  bottom: 0;
+  background: linear-gradient(to top, #ffffff, rgba(255, 255, 255, 0));
+}
+
+/* As you scroll in, the light sinks and dims; as you scroll out, it rises and blooms. */
+@keyframes sunset {
+  from {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, -38%) scale(0.85);
+    opacity: 0;
+  }
+}
+
+@keyframes sunrise {
+  from {
+    transform: translate(-50%, 85%) scale(0.7);
+    opacity: 0.3;
+  }
+  to {
+    transform: translate(-50%, 45%) scale(1.1);
+    opacity: 1;
+  }
+}
+
+@media (min-width: 768px) {
+  .tile--moe {
+    margin: 0 calc(-1 * var(--gutter));
+  }
+}
+
+/* Finder: Moe's questions in the dark theme (set by ServiceFinder) */
 [data-theme="moe"] body {
   background-color: #050807;
   color: #f5f5f7;
 }
 
 [data-theme="moe"] .nav {
-  background: rgba(5, 8, 7, 0.72);
+  background: rgba(5, 8, 7, 0.8);
   border-bottom-color: rgba(255, 255, 255, 0.08);
 }
 
 [data-theme="moe"] .nav-link,
-[data-theme="moe"] .wordmark {
+[data-theme="moe"] .nav .wordmark {
   color: #f5f5f7;
 }
 
 [data-theme="moe"] .menu-toggle span {
   background: #f5f5f7;
-}
-
-[data-theme="moe"] .tile--moe {
-  background-color: transparent;
-  color: #f5f5f7;
-}
-
-[data-theme="moe"] .tile--moe::before {
-  opacity: 1;
-}
-
-[data-theme="moe"] .tile--moe .tile-kicker {
-  color: var(--color-brand-green);
-}
-
-[data-theme="moe"] .tile--moe .tile-body,
-[data-theme="moe"] .tile--moe .tile-honest {
-  color: #a1a1a6;
-}
-
-[data-theme="moe"] .moe-call {
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
-}
-
-[data-theme="moe"] .moe-does li {
-  background: rgba(255, 255, 255, 0.06);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
-}
-
-[data-theme="moe"] .tile--moe .chip {
-  background: rgba(255, 255, 255, 0.06);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
-}
-
-[data-theme="moe"] .tile--moe .chip strong {
-  color: var(--color-brand-green);
-}
-
-[data-theme="moe"] .phone {
-  box-shadow:
-    0 30px 60px rgba(0, 0, 0, 0.5),
-    0 0 100px rgba(0, 207, 167, 0.18);
 }
 
 [data-theme="moe"] .finder-back,
