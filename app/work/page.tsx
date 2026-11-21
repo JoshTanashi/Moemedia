@@ -1,12 +1,23 @@
 import type { Metadata } from "next";
-import { WorkGallery } from "../components/WorkGallery";
+import { work } from "@/data/work";
+import { WorkTile } from "../components/WorkTile";
 
 export const metadata: Metadata = {
-  title: "Selected Work",
-  description:
-    "Live, clickable previews of the sites and products built under Moemedia.",
+  title: "Work",
+  description: "Sites, products and apps built by MOE Media.",
 };
 
 export default function WorkPage() {
-  return <WorkGallery />;
+  return (
+    <div className="tiles">
+      <header className="page-head">
+        <h1 className="tile-title">Work.</h1>
+      </header>
+      <div className="tile-grid">
+        {work.map((item) => (
+          <WorkTile key={item.slug} item={item} />
+        ))}
+      </div>
+    </div>
+  );
 }

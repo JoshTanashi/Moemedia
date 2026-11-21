@@ -6,7 +6,7 @@ export const size = {
 };
 
 export const contentType = "image/png";
-export const alt = "Moemedia — Create · Connect · Grow";
+export const alt = "MOE Media — Create · Connect · Grow";
 
 export default function Image() {
   return new ImageResponse(
@@ -41,7 +41,7 @@ export default function Image() {
               background: "linear-gradient(115deg, #3ceb8b, #00cfa7, #00b6e6)",
             }}
           />
-          A FOUNDER&apos;S STUDIO
+          WEBSITES · APPS · MOE
         </div>
         <div
           style={{
