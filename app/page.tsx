@@ -1,6 +1,8 @@
 import { work } from "@/data/work";
 import { contact } from "@/data/contact";
 import { MoeCallCard } from "./components/MoeCallCard";
+import { MoeMode } from "./components/MoeMode";
+import { MoeVideo } from "./components/MoeVideo";
 import { Pill } from "./components/Pill";
 import { PriceGrid } from "./components/PriceGrid";
 import { Reveal } from "./components/Reveal";
@@ -56,7 +58,9 @@ export default function Home() {
           Don&apos;t take our word for it. Call <strong>{contact.phoneDisplay}</strong> and talk
           to her.
         </a>
+        <MoeVideo />
         <MoeCallCard />
+        <MoeMode />
         <ul className="moe-does">
           {MOE_DOES.map((item) => (
             <li key={item}>{item}</li>

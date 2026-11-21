@@ -46,6 +46,7 @@ const jsonLd = {
   telephone: "+27735692335",
   email: contact.email,
   areaServed: { "@type": "Country", name: "South Africa" },
+  sameAs: [contact.facebook],
   description: DESCRIPTION,
 };
 
