@@ -23,6 +23,9 @@ export default function ContactPage() {
           <Pill href={`mailto:${contact.email}`} variant="secondary">
             {contact.email}
           </Pill>
+          <Pill href={contact.facebook} variant="secondary" external>
+            Facebook
+          </Pill>
         </div>
       </section>
     </div>

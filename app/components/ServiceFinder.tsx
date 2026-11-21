@@ -23,6 +23,15 @@ export function ServiceFinder() {
     window.scrollTo(0, 0);
   }, [step]);
 
+  useEffect(() => {
+    if (serviceId !== "moe") return;
+    const root = document.documentElement;
+    root.dataset.theme = "moe";
+    return () => {
+      delete root.dataset.theme;
+    };
+  }, [serviceId]);
+
   const service = services.find((s) => s.id === serviceId);
   const serviceLabel = service
     ? `${service.name}${option ? ` (${option})` : ""}`

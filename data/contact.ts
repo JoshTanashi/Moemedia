@@ -4,6 +4,7 @@ export const contact = {
   whatsapp: "https://wa.me/27735692335",
   email: "joshua@moemedia.co.za",
   location: "South Africa",
+  facebook: "https://www.facebook.com/share/1AJDW2LNjf/?mibextid=wwXIfr",
 };
 
 export function whatsappLink(message: string) {

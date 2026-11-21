@@ -1397,6 +1397,213 @@ body {
   transform: none;
 }
 
+/* ---------- Moe video ---------- */
+.moe-watch {
+  gap: 0.8rem;
+  margin-top: 1.6rem;
+}
+
+.moe-watch-icon {
+  font-size: 1.2rem;
+}
+
+.video-dialog {
+  margin: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  max-width: 100vw;
+  max-height: 100svh;
+  overflow: visible;
+}
+
+.video-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.video-frame {
+  position: relative;
+  width: min(90vw, calc((100svh - 4.8rem) * 9 / 16));
+  border-radius: 3.2rem;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 0 120px rgba(0, 207, 167, 0.25);
+}
+
+.video-frame video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.video-close {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  font-size: 1.6rem;
+}
+
+/* ---------- Moe mode: the page goes dark around Moe ---------- */
+body,
+.nav,
+.tile--moe,
+.footer {
+  transition:
+    background-color 0.6s var(--ease),
+    color 0.6s var(--ease),
+    border-color 0.6s var(--ease);
+}
+
+.tile--moe::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(55% 40% at 50% 58%, rgba(0, 207, 167, 0.22), transparent 70%),
+    radial-gradient(40% 30% at 50% 10%, rgba(60, 235, 139, 0.1), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.8s var(--ease);
+  pointer-events: none;
+}
+
+.tile--moe > :not(dialog) {
+  position: relative;
+  z-index: 1;
+}
+
+[data-theme="moe"] body {
+  background-color: #050807;
+  color: #f5f5f7;
+}
+
+[data-theme="moe"] .nav {
+  background: rgba(5, 8, 7, 0.72);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="moe"] .nav-link,
+[data-theme="moe"] .wordmark {
+  color: #f5f5f7;
+}
+
+[data-theme="moe"] .menu-toggle span {
+  background: #f5f5f7;
+}
+
+[data-theme="moe"] .tile--moe {
+  background-color: transparent;
+  color: #f5f5f7;
+}
+
+[data-theme="moe"] .tile--moe::before {
+  opacity: 1;
+}
+
+[data-theme="moe"] .tile--moe .tile-kicker {
+  color: var(--color-brand-green);
+}
+
+[data-theme="moe"] .tile--moe .tile-body,
+[data-theme="moe"] .tile--moe .tile-honest {
+  color: #a1a1a6;
+}
+
+[data-theme="moe"] .moe-call {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+}
+
+[data-theme="moe"] .moe-does li {
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="moe"] .tile--moe .chip {
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+}
+
+[data-theme="moe"] .tile--moe .chip strong {
+  color: var(--color-brand-green);
+}
+
+[data-theme="moe"] .phone {
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.5),
+    0 0 100px rgba(0, 207, 167, 0.18);
+}
+
+[data-theme="moe"] .finder-back,
+[data-theme="moe"] .finder-kicker,
+[data-theme="moe"] .finder-alt {
+  color: var(--color-brand-green);
+}
+
+[data-theme="moe"] .finder-hint,
+[data-theme="moe"] .finder-field,
+[data-theme="moe"] .finder-summary dt {
+  color: #a1a1a6;
+}
+
+[data-theme="moe"] .finder-dots li {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="moe"] .finder-dots li.is-on {
+  background: var(--color-brand);
+}
+
+[data-theme="moe"] .finder-option,
+[data-theme="moe"] .finder-field input,
+[data-theme="moe"] .finder-summary {
+  background: rgba(255, 255, 255, 0.07);
+  color: #f5f5f7;
+}
+
+[data-theme="moe"] .finder-option.is-picked {
+  box-shadow: inset 0 0 0 2px var(--color-brand);
+}
+
+[data-theme="moe"] .finder-option--quiet {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  color: #a1a1a6;
+}
+
+[data-theme="moe"] .finder-summary div {
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="moe"] .footer {
+  background-color: #0b0f0e;
+  color: #a1a1a6;
+}
+
+[data-theme="moe"] .footer-col h3 {
+  color: #f5f5f7;
+}
+
+[data-theme="moe"] .footer-col,
+[data-theme="moe"] .footer-cols {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="moe"] .footer-col a:hover {
+  color: #f5f5f7;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

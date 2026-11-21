@@ -24,6 +24,9 @@ export function SiteFooter() {
               WhatsApp
             </a>
             <a href={`mailto:${contact.email}`}>{contact.email}</a>
+            <a href={contact.facebook} target="_blank" rel="noreferrer noopener">
+              Facebook
+            </a>
           </div>
         </div>
         <div className="footer-bottom">
