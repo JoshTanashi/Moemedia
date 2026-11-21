@@ -54,6 +54,10 @@ export const viewport: Viewport = {
   themeColor: "#ffffff",
 };
 
+// On a refresh, start at the top: drop any #section left in the URL by
+// in-page links and skip the browser's scroll restore. Runs before paint.
+const RESET_ON_RELOAD = `(function(){try{history.scrollRestoration="manual";var n=performance.getEntriesByType("navigation")[0];if(!n||n.type!=="reload")return;if(location.hash)history.replaceState(history.state,"",location.pathname+location.search);var top=function(){window.scrollTo({top:0,left:0,behavior:"instant"});};top();addEventListener("load",function(){top();requestAnimationFrame(top);},{once:true});}catch(e){}})();`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -61,6 +65,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: RESET_ON_RELOAD }} />
+      </head>
       <body className="min-h-full bg-canvas text-ink">
         <Header />
         <main>{children}</main>
