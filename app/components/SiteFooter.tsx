@@ -1,63 +1,42 @@
 import Link from "next/link";
-import { businesses } from "@/data/businesses";
-import { BrandMark } from "./ui/BrandMark";
-import { RibbonSwoosh } from "./ui/RibbonStroke";
-import { Wordmark } from "./ui/Wordmark";
+import { contact } from "@/data/contact";
+import { services } from "@/data/services";
+import { work } from "@/data/work";
 
 export function SiteFooter() {
   return (
-    <footer className="site-footer">
-      <div className="site-footer-inner">
-        <div className="footer-brand">
-          <BrandMark className="footer-brand-mark" />
-          <Wordmark className="footer-wordmark" />
-        </div>
-        <div className="footer-columns">
+    <footer className="footer">
+      <div className="footer-inner">
+        <div className="footer-cols">
           <div className="footer-col">
-            <h3>Businesses</h3>
-            {businesses.map((business) =>
-              business.liveUrl ? (
-                <a
-                  key={business.slug}
-                  href={business.liveUrl}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  {business.name}
-                </a>
-              ) : (
-                <Link key={business.slug} href={`/#${business.slug}`}>
-                  {business.name}
-                </Link>
-              ),
-            )}
-            <Link href="/#reken">Reken</Link>
+            <h3>Services</h3>
+            {services.map((s) => (
+              <Link key={s.id} href={`/start?s=${s.id}`}>
+                {s.name}
+              </Link>
+            ))}
           </div>
           <div className="footer-col">
-            <h3>Site</h3>
-            <Link href="/">Story</Link>
-            <Link href="/work">Work</Link>
-            <Link href="/about">About</Link>
-            <Link href="/contact">Contact</Link>
+            <h3>Work</h3>
+            {work.map((item) => (
+              <Link key={item.slug} href={`/work#${item.slug}`}>
+                {item.name}
+              </Link>
+            ))}
           </div>
           <div className="footer-col">
             <h3>Contact</h3>
-            <span className="footer-email">
-              <a href="https://wa.me/27699384562" target="_blank" rel="noreferrer noopener">
-                069 938 4562
-              </a>
-              <RibbonSwoosh />
-            </span>
-            <a href="mailto:joshua@moemedia.co.za">joshua@moemedia.co.za</a>
-            <span className="footer-muted">I answer both myself.</span>
+            <a href={contact.tel}>{contact.phoneDisplay}</a>
+            <a href={contact.whatsapp} target="_blank" rel="noreferrer noopener">
+              WhatsApp
+            </a>
+            <a href={`mailto:${contact.email}`}>{contact.email}</a>
+            <span>{contact.location}</span>
           </div>
         </div>
         <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} Moemedia</span>
-          <span className="footer-tagline">
-            Create <i aria-hidden /> Connect <i aria-hidden /> Grow
-          </span>
-          <span>Built by one founder. Everything above is real.</span>
+          <span>Copyright © {new Date().getFullYear()} MOE Media. All rights reserved.</span>
+          <span>Create · Connect · Grow</span>
         </div>
       </div>
     </footer>

@@ -2,10 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "./components/Header";
-import { LoadingScreen } from "./components/LoadingScreen";
-import { PageTransition } from "./components/PageTransition";
 import { SiteFooter } from "./components/SiteFooter";
-import { GrainOverlay } from "./components/ui/GrainOverlay";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -14,24 +11,23 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://moemedia.vercel.app"),
+  metadataBase: new URL("https://moemedia.co.za"),
   title: {
-    default: "Moemedia — A Founder's Studio",
-    template: "%s — Moemedia",
+    default: "MOE Media — Create · Connect · Grow",
+    template: "%s — MOE Media",
   },
   description:
-    "Moemedia is the studio of one founder building small companies and the software that runs them: Red-Batch, Sandstorm Group, Workdesk, Lewis Tutoring, JML Photography and Reken.",
+    "Websites, apps, branding, social media and Moe, the AI receptionist. South Africa.",
   openGraph: {
-    title: "Moemedia — A Founder's Studio",
-    description:
-      "One founder, several small companies, and software a real business runs on every day.",
-    siteName: "Moemedia",
+    title: "MOE Media",
+    description: "Websites, apps, branding and Moe, the AI receptionist.",
+    siteName: "MOE Media",
     type: "website",
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f5f5f7",
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({
@@ -42,15 +38,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
       <body className="min-h-full bg-canvas text-ink">
-        <LoadingScreen />
-        <div className="site-shell">
-          <Header />
-          <main>
-            <PageTransition>{children}</PageTransition>
-          </main>
-          <SiteFooter />
-        </div>
-        <GrainOverlay />
+        <Header />
+        <main>{children}</main>
+        <SiteFooter />
       </body>
     </html>
   );
