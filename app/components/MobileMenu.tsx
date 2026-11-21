@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { contact } from "@/data/contact";
-import { NAV_LINKS } from "@/data/nav";
+import { NAV_CTA, NAV_LINKS } from "@/data/nav";
 
 export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
   useEffect(() => {
@@ -36,8 +36,8 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
             </Link>
           ))}
         </nav>
-        <Link href="/start" className="pill pill--primary pill--block" onClick={onClose}>
-          Start
+        <Link href={NAV_CTA.href} className="pill pill--primary pill--block" onClick={onClose}>
+          {NAV_CTA.label}
         </Link>
         <a href={contact.whatsapp} target="_blank" rel="noreferrer noopener" className="sheet-contact">
           WhatsApp {contact.phoneDisplay}

@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { MobileMenu } from "./MobileMenu";
 import { BrandMark } from "./ui/BrandMark";
 import { Wordmark } from "./ui/Wordmark";
-import { NAV_LINKS } from "@/data/nav";
+import { NAV_CTA, NAV_LINKS } from "@/data/nav";
 
 export function Header() {
   const pathname = usePathname();
@@ -31,8 +31,8 @@ export function Header() {
                 {link.label}
               </Link>
             ))}
-            <Link href="/start" className="nav-start">
-              Start
+            <Link href={NAV_CTA.href} className="nav-start">
+              {NAV_CTA.label}
             </Link>
           </nav>
           <button
