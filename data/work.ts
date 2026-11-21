@@ -47,13 +47,6 @@ export const work: WorkItem[] = [
     image: "/projects/jml-photography.jpg",
   },
   {
-    slug: "reken",
-    name: "Reken",
-    group: "Product",
-    line: "Stock and sales for a real shop, every day.",
-    status: "Live",
-  },
-  {
     slug: "reelroll",
     name: "Reelroll",
     group: "App",

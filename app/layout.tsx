@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
+import { contact } from "@/data/contact";
 import { Header } from "./components/Header";
 import { SiteFooter } from "./components/SiteFooter";
 
@@ -10,20 +12,41 @@ const inter = Inter({
   subsets: ["latin", "latin-ext"],
 });
 
+const TITLE = "MOE Media | Websites, apps & AI receptionist, South Africa";
+const DESCRIPTION =
+  "Websites from R3,500, apps and custom software, and Moe, the AI receptionist that answers your calls from R3,500/month. South Africa.";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://moemedia.co.za"),
   title: {
-    default: "MOE Media — Create · Connect · Grow",
-    template: "%s — MOE Media",
+    default: TITLE,
+    template: "%s | MOE Media",
   },
-  description:
-    "Websites, apps, branding, social media and Moe, the AI receptionist. South Africa.",
+  description: DESCRIPTION,
   openGraph: {
-    title: "MOE Media",
-    description: "Websites, apps, branding and Moe, the AI receptionist.",
+    title: TITLE,
+    description: "Websites, apps & Moe, the AI receptionist.",
     siteName: "MOE Media",
+    url: "https://moemedia.co.za",
+    locale: "en_ZA",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: "Websites, apps & Moe, the AI receptionist.",
+  },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: "MOE Media",
+  url: "https://moemedia.co.za",
+  telephone: "+27735692335",
+  email: contact.email,
+  areaServed: { "@type": "Country", name: "South Africa" },
+  description: DESCRIPTION,
 };
 
 export const viewport: Viewport = {
@@ -41,6 +64,11 @@ export default function RootLayout({
         <Header />
         <main>{children}</main>
         <SiteFooter />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <Analytics />
       </body>
     </html>
   );

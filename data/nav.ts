@@ -1,6 +1,7 @@
 export const NAV_LINKS = [
   { href: "/#moe", label: "Moe" },
-  { href: "/work", label: "Work" },
   { href: "/#services", label: "Services" },
-  { href: "/contact", label: "Contact" },
+  { href: "/#work", label: "Work" },
 ];
+
+export const NAV_CTA = { href: "/#talk", label: "Book a call" };
