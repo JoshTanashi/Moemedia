@@ -46,6 +46,7 @@ export default function Home() {
       </section>
 
       <section className="tile tile--moe" id="moe">
+        <div className="moe-bridge moe-bridge--in" aria-hidden />
         <p className="tile-kicker tile-kicker--caps">Meet Moe</p>
         <h2 className="tile-title">She answers our phone. She can answer yours.</h2>
         <p className="tile-body">
@@ -78,6 +79,7 @@ export default function Home() {
             + WhatsApp &amp; email <strong>from R5,500/month</strong>
           </li>
         </ul>
+        <div className="moe-bridge moe-bridge--out" aria-hidden />
       </section>
 
       <PriceGrid />
