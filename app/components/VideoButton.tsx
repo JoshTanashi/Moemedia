@@ -2,7 +2,15 @@
 
 import { useRef } from "react";
 
-export function MoeVideo() {
+export type VideoButtonProps = {
+  src: string;
+  poster: string;
+  label: string;
+  title: string;
+  variant?: "pill" | "link";
+};
+
+export function VideoButton({ src, poster, label, title, variant = "pill" }: VideoButtonProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -22,16 +30,20 @@ export function MoeVideo() {
 
   return (
     <>
-      <button type="button" className="pill pill--primary moe-watch" onClick={open}>
-        <span className="moe-watch-icon" aria-hidden>
+      <button
+        type="button"
+        className={variant === "pill" ? "pill pill--primary video-btn" : "video-link"}
+        onClick={open}
+      >
+        <span className="video-btn-icon" aria-hidden>
           ▶
         </span>
-        Watch Moe in 53 seconds
+        {label}
       </button>
       <dialog
         ref={dialogRef}
         className="video-dialog"
-        aria-label="Video: Moe, the AI receptionist"
+        aria-label={`Video: ${title}`}
         onClose={onClose}
         onClick={(e) => {
           if (e.target === dialogRef.current) close();
@@ -43,8 +55,8 @@ export function MoeVideo() {
           </button>
           <video
             ref={videoRef}
-            src="/video/moe.mp4"
-            poster="/video/moe-poster.jpg"
+            src={src}
+            poster={poster}
             controls
             playsInline
             preload="none"

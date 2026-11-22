@@ -1607,14 +1607,44 @@ body {
   transform: none;
 }
 
-/* ---------- Moe video ---------- */
-.moe-watch {
+/* ---------- Video buttons + player ---------- */
+.video-btn {
   gap: 0.8rem;
   margin-top: 1.6rem;
 }
 
-.moe-watch-icon {
+.video-btn .video-btn-icon {
   font-size: 1.2rem;
+}
+
+.video-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  min-height: 4.4rem;
+  margin-top: 1.2rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--color-brand-deep);
+  text-align: left;
+}
+
+.video-link .video-btn-icon {
+  display: grid;
+  place-items: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  flex: none;
+  padding-left: 0.2rem;
+  border-radius: 50%;
+  background: var(--gradient-brand);
+  color: var(--color-ink);
+  font-size: 1.1rem;
+  transition: transform 0.15s;
+}
+
+.video-link:active .video-btn-icon {
+  transform: scale(0.92);
 }
 
 .video-dialog {
@@ -1635,9 +1665,9 @@ body {
 
 .video-frame {
   position: relative;
-  width: min(90vw, calc((100svh - 4.8rem) * 9 / 16));
+  width: min(90vw, calc((100svh - 12rem) * 9 / 16));
+  margin-top: 5.6rem;
   border-radius: 3.2rem;
-  overflow: hidden;
   background: #000;
   box-shadow: 0 0 120px rgba(0, 207, 167, 0.25);
 }
@@ -1646,19 +1676,22 @@ body {
   display: block;
   width: 100%;
   height: auto;
+  border-radius: 3.2rem;
 }
 
+/* Sits above the video so it never covers what's playing */
 .video-close {
   position: absolute;
-  top: 1.2rem;
-  right: 1.2rem;
+  top: -5.6rem;
+  right: 0;
   z-index: 2;
   display: grid;
   place-items: center;
   width: 4.4rem;
   height: 4.4rem;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   color: #fff;

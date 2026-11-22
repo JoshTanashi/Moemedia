@@ -3,6 +3,7 @@ export type PriceCard = {
   from: string;
   line: string;
   finderId: string;
+  video?: { src: string; poster: string; label: string; title: string };
 };
 
 export const priceCards: PriceCard[] = [
@@ -41,6 +42,12 @@ export const priceCards: PriceCard[] = [
     from: "R15,000",
     line: "Web apps from R15,000 · mobile apps from R35,000.",
     finderId: "apps",
+    video: {
+      src: "/video/napkin-to-pocket.mp4",
+      poster: "/video/napkin-to-pocket-poster.jpg",
+      label: "Watch: napkin to pocket",
+      title: "From napkin to pocket: how MOE Media builds apps",
+    },
   },
 ];
 
