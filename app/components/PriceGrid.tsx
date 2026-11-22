@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { extras, priceCards } from "@/data/pricing";
+import { VideoButton } from "./VideoButton";
 
 export function PriceGrid() {
   return (
@@ -15,6 +16,7 @@ export function PriceGrid() {
               From <strong>{card.from}</strong>
             </p>
             <p className="price-line">{card.line}</p>
+            {card.video && <VideoButton variant="link" {...card.video} />}
             <Link href={`/start?s=${card.finderId}`} className="price-cta">
               Get a quote →
             </Link>

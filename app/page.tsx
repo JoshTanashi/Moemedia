@@ -2,7 +2,7 @@ import { work } from "@/data/work";
 import { contact } from "@/data/contact";
 import { MoeCallCard } from "./components/MoeCallCard";
 import { MoeMode } from "./components/MoeMode";
-import { MoeVideo } from "./components/MoeVideo";
+import { VideoButton } from "./components/VideoButton";
 import { Pill } from "./components/Pill";
 import { PriceGrid } from "./components/PriceGrid";
 import { Reveal } from "./components/Reveal";
@@ -59,7 +59,12 @@ export default function Home() {
           Don&apos;t take our word for it. Call <strong>{contact.phoneDisplay}</strong> and talk
           to her.
         </a>
-        <MoeVideo />
+        <VideoButton
+          src="/video/moe.mp4"
+          poster="/video/moe-poster.jpg"
+          label="Watch Moe in 53 seconds"
+          title="Moe, the AI receptionist"
+        />
         <MoeCallCard />
         <MoeMode />
         <ul className="moe-does">
